@@ -1,0 +1,16 @@
+return {
+  ansi = {
+    <% for num in 0..7 %>
+      "<%= BASE[num] %>",
+    <% end %>
+  },
+  brights = {
+    <% for num in 8..15 %>
+      "<%= BASE[num] %>",
+    <% end %>
+  },
+  foreground = "<%= BASE[15] %>",
+  background = "<%= BASE[0] %>",
+  cursor_fg = "rgba(0 0 0 0)",
+  cursor_bg = "rgba(50% 50% 50% 50%)",
+}

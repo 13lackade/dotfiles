@@ -1,0 +1,21 @@
+# XDG Base Directory Specification
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_CACHE_HOME=$HOME/.cache
+export XDG_DATA_HOME=$HOME/.local/share
+export XDG_STATE_HOME=$HOME/.local/state
+export XDG_BIN_HOME=$HOME/.local/bin
+
+# zsh
+export ZDOTDIR=$XDG_CONFIG_HOME/zsh
+
+# wget
+export WGETRC=$XDG_CONFIG_HOME/wget/.wgetrc
+
+# docker
+export DOCKER_CONFIG=$XDG_CONFIG_HOME/docker
+
+# editor
+export EDITOR=nvim
+
+# path
+path+=($XDG_BIN_HOME)

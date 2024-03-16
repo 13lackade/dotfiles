@@ -1,0 +1,55 @@
+# plugins
+fpath=($XDG_DATA_HOME/zsh/site/*(N-/) $fpath)
+autoload -Uz colors; colors
+autoload -Uz compinit; compinit -d "$XDG_CACHE_HOME/zsh/.zcompdump"
+# zsh-syntax-highlighting is not autoload-able right now ;)
+# https://github.com/zsh-users/zsh-syntax-highlighting/issues/252
+source "$XDG_DATA_HOME/zsh/site/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+autoload -Uz zsh-autosuggestions.zsh; zsh-autosuggestions.zsh
+
+# options
+setopt prompt_subst
+setopt no_beep
+setopt print_eight_bit
+setopt auto_cd
+setopt auto_pushd
+setopt pushd_ignore_dups
+setopt auto_param_slash
+setopt magic_equal_subst
+setopt hist_ignore_dups
+setopt extended_history
+setopt share_history
+zstyle ":completion:*:default" menu true select
+zstyle ":completion:*:default" list-colors "di=34"
+zstyle ":completion:*" matcher-list "m:{a-z}={A-Z}"
+
+# prompt
+export PROMPT=$(echo -e "\n%B%F{blue}%~%f\n%F{%(?.002.red)}$ %f%b")
+export PROMPT2=$(echo -e "%B%F{%(?.002.red)}$ %f%b")
+export PROMPT3=$(echo -e "%B%F{002}S$ %f%b")
+export PROMPT4=$(echo -e "%B%F{002}[DEBUG(%x:%I)] %f%b")
+
+# history
+if [ ! -d "$XDG_CACHE_HOME/zsh" ]; then
+    mkdir "$XDG_CACHE_HOME/zsh"
+fi
+export HISTFILE=$XDG_CACHE_HOME/zsh/.zhistory
+export HISTSIZE=1000
+export SAVEHIST=10000
+
+# go
+export GOPATH=$HOME/workspace/go
+path+=("$HOME/workspace/go/bin")
+
+# keybinds
+bindkey "^[[Z" reverse-menu-complete
+
+# aliases
+alias ls="ls --color=auto --group-directories-first -lv"
+alias la="ls --color=auto --group-directories-first -lAv"
+alias wget="wget --hsts-file $XDG_CACHE_HOME/wget/.wget-hsts"
+alias vim="VIMINIT=\"source \$XDG_CONFIG_HOME/vim/vimrc\" vim"
+alias zd="cd \$(find . -name \"*\" -type d | fzf)" 
+
+# cd
+cd ~
