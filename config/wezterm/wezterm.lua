@@ -63,7 +63,7 @@ M.colors = {
     cursor_fg = "rgba(0 0 0 0)"
 }
 
--- Tab
+-- Tabg
 M.enable_tab_bar = false
 M.tab_bar_at_bottom = false
 M.use_fancy_tab_bar = false
@@ -80,6 +80,7 @@ M.default_prog = { 'pwsh', '-nologo' }
 M.window_background_opacity = 0.75
 
 -- Key binding
+M.disable_default_key_bindings = true
 M.keys = {}
 table.insert(M.keys, {
     key = 'p',

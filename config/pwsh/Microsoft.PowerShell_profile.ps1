@@ -21,7 +21,10 @@ if($PSStyle) {
 }
 
 $ansiWhite = "`e[37m"
-Set-PSReadLineOption -Colors @{ "Parameter" = $ansiWhite }
+Set-PSReadLineOption -Colors @{ 
+    Default = "White"
+    InLinePrediction = "Gray"
+}
 
 function neofetch() {
     if(Test-Path ($Bash = $(Join-Path $(Get-Command git | Split-Path) ".." "bin" "bash.exe"))) {
