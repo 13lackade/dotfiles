@@ -37,6 +37,13 @@ function ..() {
     Set-Location ..
 }
 
+function cppenv() {
+    if(Test-Path ($EnvPath = "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat")) {
+        cmd /C $("`"" + $EnvPath + "`"" + " && pwsh -NoLogo")
+        Remove-Variable EnvPath
+    }
+}
+
 Set-Alias rm rm.exe
 
 $env:XDG_CONFIG_HOME = "$env:USERPROFILE/.config"
