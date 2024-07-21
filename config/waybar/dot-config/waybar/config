@@ -1,0 +1,44 @@
+// vim:set filetype=jsonc :
+{
+    "layer": "bottom",
+    // "output": output screen
+    "position": "top",
+    // "height": dynamic height
+    // "width": dynamic width
+    "modules-left": ["hyprland/workspaces"],
+    "modules-center": ["hyprland/window"],
+    "modules-right": ["pulseaudio","battery","clock"],
+    // "margin": using margin-<top|left|bottom|right>
+    "margin-top": 6,
+    "margin-left": 6,
+    "margin-bottom": 0,
+    "margin-right": 6,
+    "spacing": 4,
+    // "name": for multiple waybars
+    "mode": "dock",
+    "start_hidden": false,
+    "modifier-reset": "press",
+    "exclusive": true,
+    "fixed-center": true,
+    "passthrough": false,
+    // "ipc": for sway IPC
+    // "id": for sway IPC
+    "include": [],
+    "reload_style_on_change": true,
+
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "",
+            "5": "",
+            "active": "",
+            "default": ""
+        },
+        "persistent-workspaces": {
+            "*": [ 1, 2, 3, 4, 5 ]
+        }
+    }
+}

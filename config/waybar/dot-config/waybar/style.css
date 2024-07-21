@@ -1,0 +1,17 @@
+window#waybar {
+    background-color: rgba(12,12,12,0.75);
+    border-radius: 5px;
+    border: 1.5px solid #F8B500;
+}
+
+#workspaces button {
+  border-radius: 0px;
+}
+
+#workspaces button.active {
+ /*    border-bottom: solid 2px @active; */
+}
+
+#workspaces {
+    padding:0 0px
+}

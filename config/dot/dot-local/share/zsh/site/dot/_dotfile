@@ -1,0 +1,7 @@
+#compdef dotfile
+
+function _dotfile() {
+
+}
+
+compdef _dotfile dotfile

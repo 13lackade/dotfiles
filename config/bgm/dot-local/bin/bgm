@@ -1,0 +1,120 @@
+#!/usr/bin/env bash
+
+set -o errexit -o pipefail -o noclobber -o nounset
+
+# Useful functions
+function msg() {
+    echo "$(basename $0): $@"
+}
+
+function help() {
+    cat <<EOS
+Usage:
+    $(basename $0) <operation> [option]
+
+Operations:
+    -P --play       Start playing music
+    -H --halt       Halt playing music
+    -S --switch     Start playing music if not playing, 
+                    halt playing music if playing
+    -N --next       Play the next music
+
+Options:
+    -h --help       Print this message
+EOS
+}
+
+# Check required programs
+programs=("ffplay")
+for program in ${programs[@]}; do
+    if ! command -v $program &> /dev/null; then
+        msg "$program could not be found"
+        exit 1
+    fi
+done
+
+getopt --test && true
+if [ $? -ne 4 ]; then
+    msg "getopt version should be 4"
+    exit 1
+fi
+
+
+# Parse options
+LONG_OPTIONS=play,halt,switch,next,help
+OPTIONS=PHSNh
+PARSED=$(getopt --options=$OPTIONS --longoptions=$LONG_OPTIONS --name "$(basename $0)" -- "$@") || exit 1
+eval set -- "$PARSED"
+
+function check_operation() {
+    if [ -n "$operation" ]; then
+        msg "only one operation may be used at a time"
+        exit 1
+    fi
+}
+
+operation=
+while true; do
+    case "$1" in
+        -P|--play)
+            check_operation && operation="play"
+            shift
+            ;;
+        -H|--halt)
+            check_operation && operation="halt"
+            shift
+            ;;
+        -S|--switch)
+            check_operation && operation="switch"
+            shift
+            ;;
+        -N|--next)
+            check_operation && operation="next"
+            shift
+            ;;
+        -h|--help)
+            help
+            exit 0
+            ;;
+        --)
+            shift
+            break
+            ;;
+        *)
+            msg "program error"
+            exit 1
+            ;;
+    esac
+done
+
+if [ "$#" -ne 0 ]; then
+    msg "invalid option -- '$@'"
+    exit 1
+fi
+
+if [ -z "$operation" ]; then
+    msg "no operation specified (use -h for help)"
+    exit 1
+fi
+
+# If operation is switch, find out what to do
+if [ "$operation" = "switch" ]; then
+    if [ $(ps aux | grep "$HOME/.local/share/bgm/player" | wc -l) -ge 2 ]; then
+        operation="halt"
+    else
+        operation="play"
+    fi
+fi
+
+# Process
+if [ "$operation" = "play" ]; then
+    nohup "$HOME/.local/share/bgm/player" >/dev/null 2>&1 &
+fi
+
+if [ "$operation" = "halt" ]; then
+    kill $(ps aux | grep "$HOME/.local/share/bgm/player" | awk '{print $2}') >/dev/null 2>&1 || true
+fi
+
+if [ "$operation" = "next" ]; then
+    kill -SIGUSR1 $(ps aux | grep "$HOME/.local/share/bgm/player" | awk '{print $2}') >/dev/null 2>&1 || true
+fi

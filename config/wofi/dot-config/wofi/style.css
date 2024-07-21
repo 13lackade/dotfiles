@@ -1,0 +1,36 @@
+* {
+    border-radius: 5;
+    border: none;
+}
+
+window {
+	font-size: 20px;
+	font-family: "Roboto";
+	background-color: rgba(20, 18, 18, 0.8);
+    border: solid 2px rgba(255, 189, 61, 1);
+	color: white;
+}
+
+#entry {
+    padding: 0.25em;
+}
+
+#entry:selected {
+    background-color: rgba(255, 189, 61, 1);
+    color: rgb(14, 12, 12);
+}
+
+#text:selected {
+    color: rgb(14, 12, 12);
+}
+
+#input {
+    padding: 0.25em;
+    background-color: rgba(20, 18, 18, 0.8);
+    color: white;
+    border: solid 2px rgba(255, 189, 61, 1);
+}
+
+#input:focus {
+    box-shadow: none;
+}
