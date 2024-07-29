@@ -5,6 +5,7 @@ require('mason-tool-installer').setup({
         'lua_ls',
         'clangd',
         'pylsp',
+        'cmake',
     },
 })
 
@@ -18,11 +19,44 @@ lspconfig.lua_ls.setup({
         },
     }
 })
+lspconfig.clangd.setup({})
+lspconfig.cmake.setup({})
 
--- Disable LSP syntax highlighting
+-- disable LSP syntax highlighting
 vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)
         local client = vim.lsp.get_client_by_id(args.data.client_id)
         client.server_capabilities.semanticTokensProvider = nil
     end,
 })
+
+vim.keymap.set('n', 'ge', vim.diagnostic.open_float)
+vim.keymap.set('n', 'gn', vim.diagnostic.goto_next)
+vim.keymap.set('n', 'gp', vim.diagnostic.goto_prev)
+vim.keymap.set('n', 'gd', vim.lsp.buf.hover)
+
+local cmp = require("cmp")
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      vim.fn["vsnip#anonymous"](args.body)
+    end,
+  },
+  sources = {
+    { name = "nvim_lsp" },
+    -- { name = "buffer" },
+    -- { name = "path" },
+  },
+  mapping = cmp.mapping.preset.insert({
+    ["<C-p>"] = cmp.mapping.select_prev_item(),
+    ["<C-n>"] = cmp.mapping.select_next_item(),
+    ['<C-l>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ["<CR>"] = cmp.mapping.confirm { select = true },
+  }),
+  experimental = {
+    ghost_text = true,
+  },
+})
+
+require("fidget").setup({})
