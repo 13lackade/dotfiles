@@ -18,7 +18,7 @@ M.setup = function(self,config)
 	vim.opt.clipboard = 'unnamedplus'
 
 	vim.opt.laststatus = 3
-    vim.opt.cmdheight = 0
+    -- vim.opt.cmdheight = 0
 
 	vim.opt.signcolumn = 'yes'
 

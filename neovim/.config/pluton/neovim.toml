@@ -1,0 +1,35 @@
+[nvim-start]
+root = '~/.local/share/nvim/site/pack/plugins/start'
+
+[nvim-start.plenary]
+git = 'https://github.com/nvim-lua/plenary.nvim.git'
+
+[nvim-start.telescope]
+git = 'https://github.com/nvim-telescope/telescope.nvim.git'
+
+[nvim-start.nvim-treesitter]
+git = 'https://github.com/nvim-treesitter/nvim-treesitter.git'
+
+[nvim-start.nvim-lspconfig]
+git = 'https://github.com/neovim/nvim-lspconfig.git'
+
+[nvim-start.mason]
+git = 'https://github.com/williamboman/mason.nvim.git'
+
+[nvim-start.mason-lspconfig]
+git = 'https://github.com/williamboman/mason-lspconfig.nvim.git'
+
+[nvim-start.mason-tool-installer]
+git = 'https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim.git'
+
+[nvim-start.nvim-cmp]
+git = 'https://github.com/hrsh7th/nvim-cmp.git'
+
+[nvim-start.cmp-nvim-lsp]
+git = 'https://github.com/hrsh7th/cmp-nvim-lsp.git'
+
+[nvim-start.vim-vsnip]
+git = 'https://github.com/hrsh7th/vim-vsnip.git'
+
+[nvim-start.fidget]
+git = 'https://github.com/j-hui/fidget.nvim.git'

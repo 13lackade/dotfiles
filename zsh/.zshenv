@@ -1,2 +1,1 @@
-# vim: set filetype=zsh :
 source "$HOME/.config/zsh/.zshenv"

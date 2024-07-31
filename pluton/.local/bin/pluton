@@ -1,9 +1,11 @@
+#!/usr/bin/env ruby
+
 require 'tomlrb'
 require 'fileutils'
 
-DOTPLUG_CONFIG_DIR = File.join(ENV['HOME'],'.config','dotplug')
+PLUTON_CONFIG_DIR = File.join(ENV['HOME'],'.config','pluton')
 
-Dir.glob(File.join(DOTPLUG_CONFIG_DIR,'*.toml')) do |file|
+Dir.glob(File.join(PLUTON_CONFIG_DIR,'*.toml')) do |file|
   Tomlrb.load_file(file).each do |_, list|
     root = list['root']
     root.sub!('~',ENV['HOME'])
