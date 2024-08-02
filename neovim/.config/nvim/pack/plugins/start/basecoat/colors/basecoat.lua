@@ -98,7 +98,7 @@ vim.api.nvim_set_hl(0, "WinBar", { ctermfg = c.brown })
 vim.api.nvim_set_hl(0, "WinBarNC", { link = "WinBar" })
 
 -- :h group-name
-vim.api.nvim_set_hl(0, "Comment", { ctermfg = c.gray })
+vim.api.nvim_set_hl(0, "Comment", { ctermfg = c.light_gray })
 vim.api.nvim_set_hl(0, "Constant", { ctermfg = c.brown })
 vim.api.nvim_set_hl(0, "String", { ctermfg = c.green })
 vim.api.nvim_set_hl(0, "Character", { ctermfg = c.light_green })
