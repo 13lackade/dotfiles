@@ -11,8 +11,8 @@ M.setup = function(self,config)
 
     vim.keymap.set('i', '<C-@>', '<Nop>')
 
-    vim.keymap.set('v', 'K', function() require('blackade.util').move_block('up') end)
     vim.keymap.set('v', 'J', function() require('blackade.util').move_block('down') end)
+    vim.keymap.set('v', 'K', function() require('blackade.util').move_block('up') end)
 end
 
 return M

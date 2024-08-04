@@ -18,7 +18,7 @@ M.setup = function(self,config)
 	vim.opt.clipboard = 'unnamedplus'
 
 	vim.opt.laststatus = 3
-    -- vim.opt.cmdheight = 0
+    vim.opt.cmdheight = 0
 
 	vim.opt.signcolumn = 'yes'
 
@@ -45,6 +45,9 @@ M.setup = function(self,config)
             vim.cmd.startinsert()
         end,
     })
+
+    -- clear write message when write
+    vim.api.nvim_create_autocmd('BufWritePost', { command = 'silent w' })
 end
 
 return M
