@@ -4,9 +4,7 @@ require('mason-tool-installer').setup({
         'texlab',
         'lua_ls',
         'clangd',
-        'pylsp',
-        'pylsp',
-        'jedi-language-server',
+        'pyright',
         'cmake',
     },
 })
@@ -23,13 +21,7 @@ lspconfig.lua_ls.setup({
 })
 lspconfig.clangd.setup({})
 lspconfig.cmake.setup({})
-lspconfig.pylsp.setup({
-    settings = {
-        pylsp = {
-            pylint = { enabled = true },
-        }
-    }
-})
+lspconfig.pyright.setup({})
 
 -- disable LSP syntax highlighting
 vim.api.nvim_create_autocmd("LspAttach", {
