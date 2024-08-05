@@ -21,6 +21,7 @@ lspconfig.lua_ls.setup({
 })
 lspconfig.clangd.setup({})
 lspconfig.cmake.setup({})
+lspconfig.pylsp.setup({})
 
 -- disable LSP syntax highlighting
 vim.api.nvim_create_autocmd("LspAttach", {
