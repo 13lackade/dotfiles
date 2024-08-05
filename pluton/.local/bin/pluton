@@ -1,27 +1,28 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env python
 
-require 'tomlrb'
-require 'fileutils'
+import os
+import tomllib
+import subprocess
 
-PLUTON_CONFIG_DIR = File.join(ENV['HOME'],'.config','pluton')
+PLUTON_CONFIG_DIR = os.path.expanduser('~/.config/pluton')
 
-Dir.glob(File.join(PLUTON_CONFIG_DIR,'*.toml')) do |file|
-  Tomlrb.load_file(file).each do |_, list|
-    root = list['root']
-    root.sub!('~',ENV['HOME'])
-    list.delete 'root'
+for file in os.listdir(PLUTON_CONFIG_DIR):
+    path = os.path.join(PLUTON_CONFIG_DIR,file)
+    if os.path.isfile(path):
+        with open(path,'rb') as f:
+            data = tomllib.load(f)
 
-    list.each do |name, config|
-      dir = File.join(root, name)
-      git = config['git']
+        for key in data:
+            config = data[key]
+            root = os.path.expanduser(config.pop('root'))
 
-      if File.directory?(dir) then
-        puts "Updating #{name}"
-        %x[cd #{dir} && git pull]
-      else
-        puts "Installing #{name}"
-        %x[git clone #{git} #{dir}]
-      end
-    end
-  end
-end
+            for name in config:
+                dir = os.path.join(root,name)
+                git = config[name]['git']
+
+                if os.path.isdir(dir):
+                    print('updating ' + name)
+                    subprocess.run(['git','pull'],cwd=dir)
+                else:
+                    print('installing ' + name)
+                    subprocess.run(['git','clone',git,dir])
