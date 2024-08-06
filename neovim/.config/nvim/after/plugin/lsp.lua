@@ -6,6 +6,7 @@ require('mason-tool-installer').setup({
         'clangd',
         'pyright',
         'cmake',
+        'bashls'
     },
 })
 
@@ -22,6 +23,7 @@ lspconfig.lua_ls.setup({
 lspconfig.clangd.setup({})
 lspconfig.cmake.setup({})
 lspconfig.pyright.setup({})
+lspconfig.bashls.setup({})
 
 -- disable LSP syntax highlighting
 vim.api.nvim_create_autocmd("LspAttach", {
