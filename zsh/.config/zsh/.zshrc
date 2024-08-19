@@ -16,9 +16,6 @@ setopt auto_pushd
 setopt pushd_ignore_dups
 setopt auto_param_slash
 setopt magic_equal_subst
-setopt hist_ignore_dups
-setopt extended_history
-setopt share_history
 zstyle ":completion:*:default" menu true select
 zstyle ":completion:*:default" list-colors "di=34"
 zstyle ":completion:*" matcher-list "m:{a-z}={A-Z}"
@@ -81,3 +78,14 @@ export PROMPT=$(echo -e "\n%B%F{blue}%~%f\n%F{%(?.002.red)}$ %f%b")
 export PROMPT2=$(echo -e "%B%F{%(?.002.red)}$ %f%b")
 export PROMPT3=$(echo -e "%B%F{002}S$ %f%b")
 export PROMPT4=$(echo -e "%B%F{002}[DEBUG(%x:%I)] %f%b")
+
+### History ###
+export HISTFILE="$XDG_CACHE_HOME/zsh/histfile"
+export HISTSIZE=1000000
+export SAVEHIST=1000000
+
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_reduce_blanks
+setopt inc_append_history_time
+setopt extended_history

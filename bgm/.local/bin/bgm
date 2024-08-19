@@ -39,7 +39,6 @@ if [ $? -ne 4 ]; then
     exit 1
 fi
 
-
 # Parse options
 LONG_OPTIONS=play,halt,switch,next,help
 OPTIONS=PHSNh
