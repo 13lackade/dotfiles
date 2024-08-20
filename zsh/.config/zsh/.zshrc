@@ -55,6 +55,9 @@ else
     alias la='ls --color=always --group-directories-first -lA'
 fi
 
+# grep
+alias grep='grep --color=auto'
+
 # confirm before overwriting something
 alias cp='cp -i'
 alias mv='mv -i'
