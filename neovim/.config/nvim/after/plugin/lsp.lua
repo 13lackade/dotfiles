@@ -33,11 +33,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 
-vim.keymap.set('n', 'le', vim.diagnostic.open_float)
-vim.keymap.set('n', 'ljn', vim.diagnostic.goto_next)
-vim.keymap.set('n', 'ljp', vim.diagnostic.goto_prev)
-vim.keymap.set('n', 'ld', vim.lsp.buf.hover)
-vim.keymap.set('n', 'ljd', vim.lsp.buf.definition)
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
+vim.keymap.set('n', '<leader>jn', vim.diagnostic.goto_next)
+vim.keymap.set('n', '<leader>jp', vim.diagnostic.goto_prev)
+vim.keymap.set('n', '<leader>d', vim.lsp.buf.hover)
+vim.keymap.set('n', '<leader>jd', vim.lsp.buf.definition)
+vim.keymap.set('n', '<leader>b', '<C-o>')
 
 local cmp = require("cmp")
 cmp.setup({
