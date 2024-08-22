@@ -33,10 +33,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 
-vim.keymap.set('n', 'ge', vim.diagnostic.open_float)
-vim.keymap.set('n', 'gn', vim.diagnostic.goto_next)
-vim.keymap.set('n', 'gp', vim.diagnostic.goto_prev)
-vim.keymap.set('n', 'gd', vim.lsp.buf.hover)
+vim.keymap.set('n', '<leader>le', vim.diagnostic.open_float)
+vim.keymap.set('n', '<leader>ljn', vim.diagnostic.goto_next)
+vim.keymap.set('n', '<leader>ljp', vim.diagnostic.goto_prev)
+vim.keymap.set('n', '<leader>ld', vim.lsp.buf.hover)
+vim.keymap.set('n', '<leader>ljd', vim.lsp.buf.definition)
 
 local cmp = require("cmp")
 cmp.setup({
@@ -51,11 +52,11 @@ cmp.setup({
     -- { name = "path" },
   },
   mapping = cmp.mapping.preset.insert({
-    ["<C-p>"] = cmp.mapping.select_prev_item(),
-    ["<C-n>"] = cmp.mapping.select_next_item(),
+    ['<C-p>'] = cmp.mapping.select_prev_item(),
+    ['<C-n>'] = cmp.mapping.select_next_item(),
     ['<C-l>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.abort(),
-    ["<CR>"] = cmp.mapping.confirm { select = true },
+    ['<CR>'] = cmp.mapping.confirm { select = true },
   }),
   experimental = {
     ghost_text = true,
