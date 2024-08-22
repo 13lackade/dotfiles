@@ -34,9 +34,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
+vim.keymap.set('n', '<leader>d', vim.lsp.buf.hover)
+vim.keymap.set('n', '<leader>s', vim.lsp.buf.signature_help)
 vim.keymap.set('n', '<leader>jn', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<leader>jp', vim.diagnostic.goto_prev)
-vim.keymap.set('n', '<leader>d', vim.lsp.buf.hover)
 vim.keymap.set('n', '<leader>jd', vim.lsp.buf.definition)
 vim.keymap.set('n', '<leader>b', '<C-o>')
 

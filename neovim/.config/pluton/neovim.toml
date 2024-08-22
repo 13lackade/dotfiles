@@ -33,3 +33,6 @@ git = 'https://github.com/hrsh7th/vim-vsnip.git'
 
 [nvim-start.fidget]
 git = 'https://github.com/j-hui/fidget.nvim.git'
+
+[nvim-start.which-key]
+git = 'https://github.com/folke/which-key.nvim.git'
