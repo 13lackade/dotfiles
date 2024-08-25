@@ -1,0 +1,64 @@
+{
+    "layer": "bottom",
+    // "output": output screen
+    "position": "top",
+    // "height": dynamic height
+    // "width": dynamic width
+    "modules-left": ["clock"],
+    "modules-center": ["hyprland/workspaces"],
+    "modules-right": ["tray","battery","pulseaudio"],
+    // "margin": using margin-<top|left|bottom|right>
+    "margin-top": 4,
+    "margin-left": 8,
+    "margin-bottom": 0,
+    "margin-right": 8,
+    "spacing": 0,
+    // "name": for multiple waybars
+    "mode": "dock",
+    "start_hidden": false,
+    "modifier-reset": "press",
+    "exclusive": true,
+    "fixed-center": true,
+    "passthrough": false,
+    // "ipc": for sway IPC
+    // "id": for sway IPC
+    "include": [],
+    "reload_style_on_change": true,
+
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+            "active": " ",
+            "default": " "
+        },
+        "persistent-workspaces": {
+            "*": [ 1, 2, 3, 4, 5 ]
+        }
+    },
+
+    "clock": {
+        "format": "{:%H:%M}",
+    },
+
+    "tray": {
+        "spacing": 10,
+    },
+
+    "battery": {
+        "interval": 60,
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-icons": ["󰁺","󰁻","󰁼","󰁽","󰁾","󰁿","󰂀","󰂁","󰂂","󰁹"],
+    },
+
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-icons": {
+            "default": ["",""],
+            "default-muted": ""
+        }
+    }
+}

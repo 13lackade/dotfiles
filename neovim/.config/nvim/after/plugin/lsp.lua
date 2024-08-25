@@ -33,13 +33,18 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
-vim.keymap.set('n', '<leader>d', vim.lsp.buf.hover)
-vim.keymap.set('n', '<leader>s', vim.lsp.buf.signature_help)
-vim.keymap.set('n', '<leader>jn', vim.diagnostic.goto_next)
-vim.keymap.set('n', '<leader>jp', vim.diagnostic.goto_prev)
-vim.keymap.set('n', '<leader>jd', vim.lsp.buf.definition)
-vim.keymap.set('n', '<leader>b', '<C-o>')
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float,
+    {desc = 'Show diagnostics in a floating window.'})
+vim.keymap.set('n', '<leader>d', vim.lsp.buf.hover,
+    {desc = 'Displays hover information about the symbol under the cursor in a floating window.'})
+vim.keymap.set('n', '<leader>s', vim.lsp.buf.signature_help,
+    {desc = 'Displays signature information about the symbol under the cursor in a floating window.'})
+vim.keymap.set('n', '<leader>jn', vim.diagnostic.goto_next,
+    {desc = 'Move to the next diagnostic.'})
+vim.keymap.set('n', '<leader>jp', vim.diagnostic.goto_prev,
+    {desc = 'Move to the previous diagnostic in the current buffer.'})
+vim.keymap.set('n', '<leader>jd', vim.lsp.buf.definition,
+    {desc = 'Jumps to the definition of the symbol under the cursor.'})
 
 local cmp = require("cmp")
 cmp.setup({

@@ -4,19 +4,52 @@
 }
 
 window#waybar {
-    /* background-color: rgba(12,12,12,0.8); */
-    background: linear-gradient(0deg, rgba(00, 00, 00, 0), rgba(00,00,00,0.6), rgba(00, 00, 00, 1));
+    background-color: transparent;
     border-radius: 0px;
 }
 
 #workspaces button {
-  border-radius: 0px;
+    font-size: 0px;
+    min-width: 15px;
+    min-height: 15px;
+    border-radius: 15px;
+    margin: 5px;
+    background-color: rgba(160,216,239,255);
+}
+
+#workspaces button:hover {
+    background-color: rgba(160,216,239,255);
 }
 
 #workspaces button.active {
- /*    border-bottom: solid 2px @active; */
+    min-width: 50px;
+    background-color: rgba(44,169,225,255);
 }
 
 #workspaces {
-    padding:0 0px;
+    background-color: rgba(12,12,12,255);
+    min-height: 20px;
+    border-radius: 20px;
+}
+
+#clock {
+    background-color: rgba(12,12,12,255);
+    border-radius: 20px;
+    padding: 0px 10px;
+}
+
+#tray {
+    background-color: rgba(12,12,12,255);
+    padding: 0px 10px;
+    border-radius: 20px 0 0 20px;
+}
+
+#battery {
+    background-color: rgba(12,12,12,255);
+}
+
+#pulseaudio {
+    background-color: rgba(12,12,12,255);
+    padding: 0px 10px;
+    border-radius: 0 20px 20px 0;
 }
