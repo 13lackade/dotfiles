@@ -15,6 +15,7 @@ window#waybar {
     border-radius: 15px;
     margin: 5px;
     background-color: rgba(160,216,239,255);
+    transition:all 500ms 0s ease;
 }
 
 #workspaces button:hover {
