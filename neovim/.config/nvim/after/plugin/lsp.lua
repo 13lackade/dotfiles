@@ -24,6 +24,7 @@ lspconfig.clangd.setup({})
 lspconfig.cmake.setup({})
 lspconfig.pyright.setup({})
 lspconfig.bashls.setup({})
+lspconfig.texlab.setup({})
 
 -- disable LSP syntax highlighting
 vim.api.nvim_create_autocmd("LspAttach", {

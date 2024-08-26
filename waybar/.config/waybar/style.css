@@ -16,10 +16,12 @@ window#waybar {
     margin: 5px;
     background-color: rgba(160,216,239,255);
     transition:all 500ms 0s ease;
+    background-image: none;
+    border: none;
 }
 
 #workspaces button:hover {
-    background-color: rgba(160,216,239,255);
+    background-color: rgba(44,169,225,255);
 }
 
 #workspaces button.active {
