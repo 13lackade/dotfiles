@@ -6,7 +6,7 @@ M.setup = function(self,config)
 	vim.g.netrw_bufsettings = 'nomodifiable nomodified number relativenumber nobuflisted nowrap readonly'
 	vim.g.netrw_list_hide = [[^\.\+/$]]
 
-	vim.keymap.set('n','<leader>df',':Ex<CR>')
+	vim.keymap.set('n','<leader>ed',':Ex<CR>')
 end
 
 return M

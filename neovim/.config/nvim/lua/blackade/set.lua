@@ -18,7 +18,7 @@ M.setup = function(self,config)
 	vim.opt.clipboard = 'unnamedplus'
 
 	vim.opt.laststatus = 3
-    vim.opt.cmdheight = 0
+    -- vim.opt.cmdheight = 0
 
 	vim.opt.signcolumn = 'yes'
 
@@ -48,6 +48,13 @@ M.setup = function(self,config)
 
     -- clear write message when write
     vim.api.nvim_create_autocmd('BufWritePost', { command = 'silent w' })
+
+    -- disable '~' on nonexistent lines
+    vim.opt.fillchars = { eob = ' ' }
+
+    if vim.g.neovide then
+       vim.o.guifont = 'monospace:h12'
+    end
 end
 
 return M

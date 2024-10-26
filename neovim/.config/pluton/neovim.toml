@@ -36,3 +36,6 @@ git = 'https://github.com/j-hui/fidget.nvim.git'
 
 [nvim-start.which-key]
 git = 'https://github.com/folke/which-key.nvim.git'
+
+[nvim-start.markdown-preview]
+git = 'https://github.com/iamcco/markdown-preview.nvim.git'

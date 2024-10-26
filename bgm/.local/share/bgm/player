@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
 
 pid="$HOME/.local/state/bgm/pid"
-if [ ! -d $(dirname $pid) ]; then
-    rm -rf $(dirname $pid)
-    mkdir -p $(dirname $pid)
-fi
+rm -rf $(dirname $pid)
+mkdir -p $(dirname $pid)
 
 function clean() {
     kill $(cat $1)
@@ -22,6 +20,9 @@ trap "next $pid" 10
 
 while true; do
     find ~/Music/** | shuf | while read line; do
+        if [ -d $line ]; then
+            continue
+        fi
         ffplay -nodisp -autoexit "$line" >/dev/null 2>&1 &
         echo $! > $pid
         wait $(cat $pid)

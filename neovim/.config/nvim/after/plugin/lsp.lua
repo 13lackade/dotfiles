@@ -6,7 +6,8 @@ require('mason-tool-installer').setup({
         'clangd',
         'pyright',
         'cmake',
-        'bashls'
+        'bashls',
+        'ruby_lsp',
     },
 })
 
@@ -25,6 +26,8 @@ lspconfig.cmake.setup({})
 lspconfig.pyright.setup({})
 lspconfig.bashls.setup({})
 lspconfig.texlab.setup({})
+lspconfig.ruby_lsp.setup({})
+lspconfig.hls.setup({})
 
 -- disable LSP syntax highlighting
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -56,6 +59,7 @@ cmp.setup({
   },
   sources = {
     { name = "nvim_lsp" },
+    { name = "nvim_lsp_signature_help" },
     -- { name = "buffer" },
     -- { name = "path" },
   },
