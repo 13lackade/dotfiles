@@ -23,6 +23,8 @@ while true; do
         if [ -d $line ]; then
             continue
         fi
+        # hyprctl notify 1 1500 0 "$(basename "$line" | cut -f 1 -d '.')"
+        notify-send -t 1500 "$(basename "$line" | cut -f 1 -d '.')"
         ffplay -nodisp -autoexit "$line" >/dev/null 2>&1 &
         echo $! > $pid
         wait $(cat $pid)
