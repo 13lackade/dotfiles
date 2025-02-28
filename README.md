@@ -16,6 +16,7 @@ pacman -S stow
 
 Install dotfiles you want
 
+
 ```sh
 stow neovim kitty zsh ...
 ```
