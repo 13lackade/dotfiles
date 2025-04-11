@@ -1,0 +1,4 @@
+[catppuccin]
+type = "git"
+path = "~/.local/share/hyprland/catppuccin"
+url = "https://github.com/catppuccin/hyprland.git"

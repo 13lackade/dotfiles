@@ -1,0 +1,4 @@
+[catppuccin]
+type = "script"
+path = "~/.local/share/fcitx5/themes"
+script = "~/.config/plug/fcitx5/fcitx5.sh"

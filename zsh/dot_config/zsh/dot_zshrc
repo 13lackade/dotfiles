@@ -1,0 +1,43 @@
+# vim: set ft=zsh :
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.local/zsh/histfile
+HISTSIZE=10000
+SAVEHIST=10000
+bindkey -v
+# End of lines configured by zsh-newuser-install
+# The following lines were added by compinstall
+zstyle :compinstall filename '/home/blackade/.zshrc'
+
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
+
+### COMMANDS ###
+# ls
+if command -v eza &> /dev/null; then
+	alias ls='eza --color=always --group-directories-first -l'
+	alias la='eza --color=always --group-directories-first -lA'
+else
+	alias ls='ls --color=always --group-directories-first -l'
+	alias la='ls --color=always --group-directories-first -lA'
+fi
+
+### PROMPTS ###
+export PROMPT=$(echo -e "\n%B%F{blue}%~%f\n%F{%(?.002.red)}$ %f%b")
+export PROMPT2=$(echo -e "%B%F{%?.002.red)}$ %f%b")
+export PROMPT3=$(echo -e "%B%F{002}S$ %f%b")
+export PROMPT4=$(echo -e "%B%F{002}[DEBUG(%:%I)] %f%b")
+
+### PLUGINS ###
+fpath+=($XDG_DATA_HOME/zsh/site/*(N-/))
+autoload -Uz colors; colors
+autoload -Uz compinit; compinit
+autoload -Uz zsh-autosuggestions.zsh; zsh-autosuggestions.zsh
+autoload -Uz zsh-completions.plugin.zsh; zsh-completions.plugin.zsh
+# zsh-syntax-highlighting is not autoload-able right now ;)
+# https://github.com/zsh-users/zsh-syntax-highlighting/issues/252
+source "$XDG_DATA_HOME/zsh/site/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+
+zstyle ":completion:*:default" menu true select
+zstyle ":completion:*:default" list-colors "di=34"
+zstyle ":completion:*" matcher-list "m:{a-z}={A-Z}"

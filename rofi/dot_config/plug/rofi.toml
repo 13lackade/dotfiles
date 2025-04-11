@@ -1,0 +1,4 @@
+[catppuccin]
+type = "script"
+path = "~/.local/share/rofi/catppuccin"
+script = "~/.config/plug/rofi/rofi.sh"

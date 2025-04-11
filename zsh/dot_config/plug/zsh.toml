@@ -1,0 +1,14 @@
+[zsh-autosuggestions]
+type = "git"
+path = "~/.local/share/zsh/site/zsh-autosuggestions"
+url = "https://github.com/zsh-users/zsh-autosuggestions.git"
+
+[zsh-syntax-highlighting]
+type = "git"
+path = "~/.local/share/zsh/site/zsh-syntax-highlighting"
+url = "https://github.com/zsh-users/zsh-syntax-highlighting.git"
+
+[zsh-completions]
+type = "git"
+path = "~/.local/share/zsh/site/zsh-completions"
+url = "https://github.com/zsh-users/zsh-completions.git"

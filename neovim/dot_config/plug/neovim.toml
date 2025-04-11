@@ -1,0 +1,44 @@
+[catppuccin]
+type = "git"
+path = "~/.local/share/nvim/site/pack/plugins/start/catppuccin"
+url = "https://github.com/catppuccin/nvim.git"
+
+[plenary]
+type = "git"
+path = "~/.local/share/nvim/site/pack/plugins/start/plenary.nvim"
+url = "https://github.com/nvim-lua/plenary.nvim.git"
+
+[denops]
+type = "git"
+path = "~/.local/share/nvim/site/pack/plugins/start/denops.nvim"
+url = "https://github.com/vim-denops/denops.vim.git"
+
+[telescope-nvim]
+type = "git"
+path = "~/.local/share/nvim/site/pack/plugins/start/telescope.nvim"
+url = "https://github.com/nvim-telescope/telescope.nvim.git"
+
+[nvim-treesitter]
+type = "git"
+path = "~/.local/share/nvim/site/pack/plugins/start/nvim-treesitter"
+url = "https://github.com/nvim-treesitter/nvim-treesitter.git"
+
+[nvim-lspconfig]
+type = "git"
+path = "~/.local/share/nvim/site/pack/plugins/start/nvim-lspconfig"
+url = "https://github.com/neovim/nvim-lspconfig.git"
+
+[skkeleton]
+type = "git"
+path = "~/.local/share/nvim/site/pack/plugins/start/skkeleton"
+url = "https://github.com/vim-skk/skkeleton.git"
+
+[clangd]
+type = "script"
+path = "~/.local/share/nvim/lsp/clangd"
+script = "~/.config/plug/neovim/clangd.sh"
+
+[pyright]
+type = "script"
+path = "~/.local/share/nvim/lsp/pyright"
+script = "~/.config/plug/neovim/pyright.sh"

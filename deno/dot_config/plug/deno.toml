@@ -1,0 +1,4 @@
+[deno]
+type = "script"
+path = "~/.local/share/dotfiles/deno"
+script = "~/.config/plug/deno/deno.sh"
