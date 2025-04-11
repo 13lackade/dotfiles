@@ -21,3 +21,21 @@ vim.keymap.set('n', '<leader>s', vim.lsp.buf.signature_help)
 vim.keymap.set('n', '<leader>jn', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<leader>jp', vim.diagnostic.goto_prev)
 vim.keymap.set('n', '<leader>jd', vim.lsp.buf.definition)
+
+local cmp = require('cmp')
+cmp.setup({
+    snippet = {
+        expand = function(args)
+            vim.fn['vsnip#anonymous'](args.body)
+        end,
+    },
+    window = {
+    },
+    mapping = cmp.mapping.preset.insert({}),
+    sources = cmp.config.sources({
+        { name = 'nvim_lsp' },
+        { name = 'vsnip' },
+    }, {
+        { name = 'buffer' },
+    })
+})

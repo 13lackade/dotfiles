@@ -2,6 +2,7 @@ require('telescope').setup({
     pickers = {
         find_files = {
             hidden = true,
+            follow = true,
             disable_devicons = true,
         },
         colorscheme = {
