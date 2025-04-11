@@ -41,3 +41,9 @@ source "$XDG_DATA_HOME/zsh/site/zsh-syntax-highlighting/zsh-syntax-highlighting.
 zstyle ":completion:*:default" menu true select
 zstyle ":completion:*:default" list-colors "di=34"
 zstyle ":completion:*" matcher-list "m:{a-z}={A-Z}"
+
+_fix_cursor() {
+   echo -ne '\e[5 q'
+}
+
+precmd_functions+=(_fix_cursor)
