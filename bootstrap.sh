@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 
-python dot/dot_local/share/dot/dot.py install deno dot fcitx5 hyprland rofi plug neovim zsh ghostty
+packages=$(find . -maxdepth 1 -type d | grep ./ | sed 's/\.\///' | grep -v \\. | tr '\n' ' ')
+python dot/dot_local/share/dot/dot.py install $packages
 python plug/dot_local/share/plug/plug.py
