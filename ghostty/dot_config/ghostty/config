@@ -22,3 +22,5 @@ keybind = alt+six=unbind
 keybind = alt+seven=unbind
 keybind = alt+eight=unbind
 keybind = alt+nine=unbind
+
+keybind = ctrl+nine=increase_font_size:1
