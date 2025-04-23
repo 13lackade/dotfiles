@@ -6,6 +6,9 @@ lspconfig.pyright.setup({
 lspconfig.clangd.setup({
     cmd = { xdg_bin_home .. "/clangd" },
 })
+lspconfig.texlab.setup({
+    cmd = { xdg_bin_home .. "/texlab" },
+})
 
 -- disable LSP syntax highlighting
 vim.api.nvim_create_autocmd("LspAttach", {

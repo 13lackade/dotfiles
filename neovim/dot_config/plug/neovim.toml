@@ -77,3 +77,8 @@ script = "~/.config/plug/neovim/clangd.sh"
 type = "script"
 path = "~/.local/share/nvim/lsp/pyright"
 script = "~/.config/plug/neovim/pyright.sh"
+
+[texlab]
+type = "script"
+path = "~/.local/share/nvim/lsp/texlab"
+script = "~/.config/plug/neovim/texlab.sh"
