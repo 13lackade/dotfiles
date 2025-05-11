@@ -1,0 +1,3 @@
+#!/usr/bin/bash
+
+slurp | grim -g - ~/Pictures/Screenshots/screenshot-$(date +%Y%m%d%H%M).png

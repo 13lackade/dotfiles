@@ -9,6 +9,9 @@ lspconfig.clangd.setup({
 lspconfig.texlab.setup({
     cmd = { xdg_bin_home .. "/texlab" },
 })
+lspconfig.tinymist.setup({
+    cmd = { xdg_bin_home .. "/tinymist" },
+})
 
 -- disable LSP syntax highlighting
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -40,5 +43,8 @@ cmp.setup({
         { name = 'vsnip' },
     }, {
         { name = 'buffer' },
-    })
+    }),
+    enabled = function()
+        return (vim.bo.ft ~= "markdown")
+    end,
 })

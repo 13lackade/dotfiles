@@ -82,3 +82,8 @@ script = "~/.config/plug/neovim/pyright.sh"
 type = "script"
 path = "~/.local/share/nvim/lsp/texlab"
 script = "~/.config/plug/neovim/texlab.sh"
+
+[tinymist]
+type = "script"
+path = "~/.local/share/nvim/lsp/tinymist"
+script = "~/.config/plug/neovim/tinymist.sh"
