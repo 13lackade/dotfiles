@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
 
-python3 dot/dot_local/share/dot/dot.py install $packages
-python3 plug/dot_local/share/plug/plug.py
+mkdir -p ~/.local/share/dotfiles/deno
+pushd ~/.local/share/dotfiles/deno
+~/.dotfiles/deno/dot_config/plug/deno/deno.sh
+popd
+
+export PATH="$PATH:~/.local/bin"
+~/.dotfiles/scripts/dot_local/bin/dot
+~/.dotfiles/scripts/dot_local/bin/plug

@@ -1,0 +1,73 @@
+#!/usr/bin/env -S deno --allow-env --allow-read --allow-write --allow-run
+/* vim: set ft=typescript : */
+
+import { expandGlob } from "jsr:@std/fs@^0.224.0";
+import { join, expandGlobSync } from "jsr:@std/path@0.224.0";
+import { parse } from "jsr:@std/toml@^0.224.0";
+
+async function installGit(data: any) {
+  const dir = Deno.realPathSync(data.path.replace(/^~\//, `${Deno.env.get("HOME")}/`));
+  const gitUrl = data.url;
+
+  try {
+    const gitDir = join(dir, ".git");
+    const stat = await Deno.stat(gitDir);
+    if (stat.isDirectory) {
+      await runCommand(["git", "pull"], dir);
+      return;
+    }
+  } catch { }
+
+  await runCommand(["git", "clone", gitUrl, dir]);
+}
+
+async function installScript(data: any) {
+  const dir = data.path.replace(/^~\//, `${Deno.env.get("HOME")}/`);
+  const scriptPath = data.script.replace(/^~\//, `${Deno.env.get("HOME")}/`);
+
+  await Deno.mkdir(dir, { recursive: true });
+  await runCommand([scriptPath], dir);
+}
+
+async function runCommand(cmd: string[], cwd: string) {
+  const process = Deno.run({
+    cmd,
+    cwd,
+    stdout: "inherit",
+    stderr: "inherit",
+  });
+  const status = await process.status();
+  process.close();
+  if (!status.success) {
+    console.error(`Command failed: ${cmd.join(" ")}`);
+  }
+}
+
+async function main() {
+  const configDir = Deno.realPathSync("~/.config/plug".replace(/^~\//, `${Deno.env.get("HOME")}/`));
+
+  for await (const entry of Deno.readDir(configDir)) {
+    if (entry.isDirectory) continue;
+
+    const filePath = join(configDir, entry.name);
+    const content = await Deno.readTextFile(filePath);
+    const data = parse(content);
+
+    for (const key in data) {
+      console.log("installing", key);
+      const item = data[key];
+      switch (item.type) {
+        case "git":
+          await installGit(item);
+          break;
+        case "script":
+          await installScript(item);
+          break;
+        default:
+          console.log("unknown type:", item.type);
+      }
+    }
+  }
+}
+
+main();
