@@ -6,7 +6,7 @@ import { join, expandGlobSync } from "jsr:@std/path@0.224.0";
 import { parse } from "jsr:@std/toml@^0.224.0";
 
 async function installGit(data: any) {
-  const dir = Deno.realPathSync(data.path.replace(/^~\//, `${Deno.env.get("HOME")}/`));
+  const dir = data.path.replace(/^~\//, `${Deno.env.get("HOME")}/`);
   const gitUrl = data.url;
 
   try {
