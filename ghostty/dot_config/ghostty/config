@@ -10,7 +10,7 @@ window-padding-balance = true
 
 resize-overlay = never
 
-command = ~/.local/bin/start_tmux.sh
+command = ~/.local/bin/st
 
 confirm-close-surface = false
 

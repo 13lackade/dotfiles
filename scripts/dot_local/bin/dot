@@ -1,0 +1,52 @@
+#!/usr/bin/env -S deno --allow-env --allow-read --allow-write
+/* vim: set ft=typescript : */
+
+const HOME = Deno.env.get("HOME");
+if (!HOME) {
+    console.error("$HOME is not set");
+    Deno.exit(1);
+}
+
+const DOTFILES_DIR = `${HOME}/.dotfiles`;
+const DRY_RUN = Deno.args.includes("--dry-run");
+
+async function deploy() {
+    for await (const appDir of Deno.readDir(DOTFILES_DIR)) {
+        if (!appDir.isDirectory || appDir.name === '.git') continue;
+        
+        const appPath = `${DOTFILES_DIR}/${appDir.name}`;
+
+        copy(appPath,HOME);
+    }
+}
+
+async function copy(src: string, dest: string) {
+    for await (const entry of Deno.readDir(src)) {
+        const renamed = entry.name.replace(/^dot_/,'.');
+        const srcPath = `${src}/${entry.name}`;
+        const destPath = `${dest}/${renamed}`;
+
+        if (entry.isDirectory) {
+            console.log(`mkdir -p ${destPath}`);
+
+            if (!DRY_RUN) {
+                await Deno.mkdir(destPath, { recursive: true });
+            }
+            
+            await copy(srcPath, destPath);
+        } else {
+            console.log(`rm -rf ${destPath}`);
+            console.log(`cp ${srcPath} ${destPath}`);
+
+            if (!DRY_RUN) {
+                try { await Deno.remove(destPath); } catch (_) {}
+                await Deno.copyFile(srcPath, destPath);
+            }
+        }
+    }
+}
+
+deploy().catch((err) => {
+    console.error("error occured:", err);
+    Deno.exit(1);
+});
