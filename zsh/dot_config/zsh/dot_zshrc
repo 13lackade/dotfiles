@@ -1,6 +1,7 @@
 # vim: set ft=zsh :
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.local/zsh/histfile
+mkdir -p $(dirname $HISTFILE)
 HISTSIZE=10000
 SAVEHIST=10000
 bindkey -v
