@@ -1,4 +1,4 @@
-local xdg_bin_home = vim.env.XDG_BIN_HOME
+local xdg_bin_home = vim.env.XDG_BIN_HOME or '~/.local/share'
 local lspconfig = require('lspconfig')
 lspconfig.pyright.setup({
     cmd = { xdg_bin_home .. "/pyright-langserver", "--stdio" },

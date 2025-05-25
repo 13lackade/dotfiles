@@ -69,20 +69,27 @@ M.statusline = function()
     local MODIFIED = "%m"
     local RIGHT_ALIGN = "%="
 
-    local get_mode_highlight = require('blackade.statusline').get_mode_highlight
+    local status = require('blackade.statusline')
 
     local statusline =
-        string.format("%%#%s# ",get_mode_highlight()) ..
+        string.format("%%#%s# ",status.get_mode_highlight()) ..
         string.format("%%#StatusLine# %s %s", FILE_NAME, MODIFIED) ..
         RIGHT_ALIGN
 
-    if vim.g.blackade_devmode then
-
+    local severities = {'Error', 'Warn', 'Info', 'Hint'}
+    for _, severity in ipairs(severities) do
+        statusline =
+            statusline ..
+            string.format("%%#%s#%s %d ",
+                status.highlights[severity],
+                string.sub(severity, 1, 1),
+                #vim.diagnostic.get(0, 
+                {severity = vim.diagnostic.severity[string.upper(severity)]}))
     end
 
-    statusline =
+    local statusline =
         statusline ..
-        string.format("%%#%s# ",get_mode_highlight())
+        string.format("%%#%s# ",status.get_mode_highlight())
 
     return statusline
 end

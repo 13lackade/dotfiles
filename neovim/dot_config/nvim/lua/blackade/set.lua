@@ -23,6 +23,8 @@ M.setup = function()
 
     vim.opt.hlsearch = true
     vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+
+    vim.opt.exrc = true
 end
 
 return M
