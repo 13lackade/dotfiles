@@ -12,6 +12,24 @@ lspconfig.texlab.setup({
 lspconfig.tinymist.setup({
     cmd = { xdg_bin_home .. "/tinymist" },
 })
+lspconfig.zls.setup({})
+lspconfig.hls.setup({})
+lspconfig.gopls.setup({})
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+lspconfig.html.setup({
+    capabilities = capabilities,
+    cmd = { xdg_bin_home .. "/vscode-html-language-server", "--stdio" },
+})
+lspconfig.cssls.setup({
+    capabilities = capabilities,
+    cmd = { xdg_bin_home .. "/vscode-css-language-server", "--stdio" },
+})
+lspconfig.eslint.setup({
+    cmd = { xdg_bin_home .. "/vscode-eslint-language-server", "--stdio" },
+})
 
 -- disable LSP syntax highlighting
 vim.api.nvim_create_autocmd("LspAttach", {

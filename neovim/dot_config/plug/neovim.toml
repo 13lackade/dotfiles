@@ -87,3 +87,8 @@ script = "~/.config/plug/neovim/texlab.sh"
 type = "script"
 path = "~/.local/share/nvim/lsp/tinymist"
 script = "~/.config/plug/neovim/tinymist.sh"
+
+[vscode-langservers-extracted]
+type = "script"
+path = "~/.local/share/nvim/lsp/vscode-langservers-extracted"
+script = "~/.config/plug/neovim/vscode-langservers-extracted.sh"
