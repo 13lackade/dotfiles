@@ -1,0 +1,29 @@
+theme = Catppuccin Mocha
+
+font-size = 12
+font-family = monospace
+
+background-opacity = 0.95
+
+window-padding-x = 0
+window-padding-y = 0
+window-padding-balance = true
+
+resize-overlay = never
+
+confirm-close-surface = false
+
+keybind = alt+one=unbind
+keybind = alt+two=unbind
+keybind = alt+three=unbind
+keybind = alt+four=unbind
+keybind = alt+five=unbind
+keybind = alt+six=unbind
+keybind = alt+seven=unbind
+keybind = alt+eight=unbind
+keybind = alt+nine=unbind
+
+keybind = ctrl+nine=increase_font_size:1
+
+cursor-style = block
+cursor-style-blink = false
