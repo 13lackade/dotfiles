@@ -1,0 +1,6 @@
+[".local/bin/deno"]
+    type = "archive-file"
+    url = "https://github.com/denoland/deno/releases/latest/download/deno-x86_64-unknown-linux-gnu.zip"
+    executable = true
+    path = "deno"
+    refreshPeriod = "24h"
