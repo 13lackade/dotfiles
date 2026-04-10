@@ -4,3 +4,10 @@
     executable = true
     path = "deno"
     refreshPeriod = "24h"
+
+[".local/bin/tinty"]
+    type = "archive-file"
+    url = "https://github.com/tinted-theming/tinty/releases/latest/download/tinty-x86_64-unknown-linux-gnu.tar.gz"
+    executable = true
+    path = "tinty"
+    refreshPeriod = "24h"
