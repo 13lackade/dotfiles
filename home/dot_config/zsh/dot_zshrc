@@ -53,8 +53,8 @@ if command -v eza > /dev/null; then
     alias ls='eza --long --color=auto --group-directories-first'
     alias la='eza --long --color=auto --almost-all --group-directories-first'
 else
-    alias ls='ls --long --color=auto --group-directories-first'
-    alias la='ls --long --color=auto --almost-all --group-directories-first'
+    alias ls='ls -l --color=auto --group-directories-first'
+    alias la='ls -l --color=auto --almost-all --group-directories-first'
 fi
 
 # sudo
