@@ -11,3 +11,10 @@
     executable = true
     path = "tinty"
     refreshPeriod = "24h"
+
+[".local/bin/eza"]
+    type = "archive-file"
+    url = "https://github.com/eza-community/eza/releases/latest/download/eza_x86_64-unknown-linux-gnu.zip"
+    executable = true
+    path = "eza"
+    refreshPeriod = "24h"
