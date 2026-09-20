@@ -92,14 +92,26 @@
   };
   nvim-lspconfig = {
     pname = "nvim-lspconfig";
-    version = "ac9d2f7c4757db6320cab6697fe73e5e8adb2457";
+    version = "ffd261c09c3dabd0bf1a438f47a8ae3b22f3c3ff";
     src = fetchFromGitHub {
       owner = "neovim";
       repo = "nvim-lspconfig";
-      rev = "ac9d2f7c4757db6320cab6697fe73e5e8adb2457";
+      rev = "ffd261c09c3dabd0bf1a438f47a8ae3b22f3c3ff";
       fetchSubmodules = false;
-      sha256 = "sha256-+p0aJzjdfsUQEqgORJnBaZXKDWqB91ijqGvLwF8dP/Q=";
+      sha256 = "sha256-zHc0w8uExt7+5U3YrGT+Eg815htZXtWFOkT2Tm172V4=";
     };
-    date = "2026-09-10";
+    date = "2026-09-18";
+  };
+  nvim-treesitter = {
+    pname = "nvim-treesitter";
+    version = "f603a2f4da48728f80257fb5fbb90145fd1dc173";
+    src = fetchFromGitHub {
+      owner = "nvim-treesitter";
+      repo = "nvim-treesitter";
+      rev = "f603a2f4da48728f80257fb5fbb90145fd1dc173";
+      fetchSubmodules = false;
+      sha256 = "sha256-fXBJhWvjzBGivIiAys9oy2JB9h99CNIk+AdGkGgHgPg=";
+    };
+    date = "2026-09-19";
   };
 }

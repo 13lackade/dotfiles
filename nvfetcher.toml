@@ -29,3 +29,7 @@ fetch.github = "Shougo/ddu-filter-matcher_substring"
 [ddu-kind-file]
 src.git = "https://github.com/Shougo/ddu-kind-file"
 fetch.github = "Shougo/ddu-kind-file"
+
+[nvim-treesitter]
+src.git = "https://github.com/nvim-treesitter/nvim-treesitter"
+fetch.github = "nvim-treesitter/nvim-treesitter"

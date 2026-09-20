@@ -148,7 +148,7 @@
     },
     "nvim-lspconfig": {
         "cargoLock": null,
-        "date": "2026-09-10",
+        "date": "2026-09-18",
         "extract": null,
         "name": "nvim-lspconfig",
         "passthru": null,
@@ -160,11 +160,32 @@
             "name": null,
             "owner": "neovim",
             "repo": "nvim-lspconfig",
-            "rev": "ac9d2f7c4757db6320cab6697fe73e5e8adb2457",
-            "sha256": "sha256-+p0aJzjdfsUQEqgORJnBaZXKDWqB91ijqGvLwF8dP/Q=",
+            "rev": "ffd261c09c3dabd0bf1a438f47a8ae3b22f3c3ff",
+            "sha256": "sha256-zHc0w8uExt7+5U3YrGT+Eg815htZXtWFOkT2Tm172V4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "ac9d2f7c4757db6320cab6697fe73e5e8adb2457"
+        "version": "ffd261c09c3dabd0bf1a438f47a8ae3b22f3c3ff"
+    },
+    "nvim-treesitter": {
+        "cargoLock": null,
+        "date": "2026-09-19",
+        "extract": null,
+        "name": "nvim-treesitter",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "nvim-treesitter",
+            "repo": "nvim-treesitter",
+            "rev": "f603a2f4da48728f80257fb5fbb90145fd1dc173",
+            "sha256": "sha256-fXBJhWvjzBGivIiAys9oy2JB9h99CNIk+AdGkGgHgPg=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "f603a2f4da48728f80257fb5fbb90145fd1dc173"
     }
 }

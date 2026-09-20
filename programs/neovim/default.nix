@@ -21,6 +21,9 @@ in
     ripgrep
     deno
 
+    tree-sitter
+    gcc
+
     clang-tools
     lua-language-server
     pyright
@@ -32,6 +35,7 @@ in
   xdg.dataFile = plug [
     "catppuccin.nvim"
     "nvim-lspconfig"
+    "nvim-treesitter"
     "denops.vim"
     "ddu.vim"
     "ddu-ui-ff"
