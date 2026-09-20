@@ -1,0 +1,15 @@
+[init]
+	defaultBranch = main
+[user]
+	name = 13lackade
+	email = 13lackade@gmail.com
+	signingkey = /home/blackade/.ssh/id_ed25519.pub
+[ghq]
+	root = ~/Workspace
+	user = 13lackade
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true
+[tag]
+	gpgsign = true

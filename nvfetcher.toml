@@ -1,0 +1,31 @@
+["catppuccin.nvim"]
+src.git = "https://github.com/catppuccin/nvim"
+fetch.github = "catppuccin/nvim"
+
+[nvim-lspconfig]
+src.git = "https://github.com/neovim/nvim-lspconfig"
+fetch.github = "neovim/nvim-lspconfig"
+
+["denops.vim"]
+src.git = "https://github.com/vim-denops/denops.vim"
+fetch.github = "vim-denops/denops.vim"
+
+["ddu.vim"]
+src.git = "https://github.com/Shougo/ddu.vim"
+fetch.github = "Shougo/ddu.vim"
+
+[ddu-ui-ff]
+src.git = "https://github.com/Shougo/ddu-ui-ff"
+fetch.github = "Shougo/ddu-ui-ff"
+
+[ddu-source-file_rec]
+src.git = "https://github.com/Shougo/ddu-source-file_rec"
+fetch.github = "Shougo/ddu-source-file_rec"
+
+[ddu-filter-matcher_substring]
+src.git = "https://github.com/Shougo/ddu-filter-matcher_substring"
+fetch.github = "Shougo/ddu-filter-matcher_substring"
+
+[ddu-kind-file]
+src.git = "https://github.com/Shougo/ddu-kind-file"
+fetch.github = "Shougo/ddu-kind-file"

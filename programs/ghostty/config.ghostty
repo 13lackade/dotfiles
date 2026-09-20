@@ -1,0 +1,17 @@
+# theme
+theme = Catppuccin Mocha
+
+# shell
+confirm-close-surface = false
+
+# fonts 
+font-family = monospace
+font-feature = -calt, -liga, -dlig, +zero
+font-size = 12
+
+# window appearance
+scrollbar = never
+resize-overlay = never
+window-padding-balance = true
+window-padding-color = extend
+window-decoration = none

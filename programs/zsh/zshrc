@@ -1,0 +1,10 @@
+gcd() {
+	local target base
+	base="$(eval echo $(git config get ghq.root))"
+	target="$(ghq list|fzf --reverse --height=10 --preview="eza --color=always $base/{}")"
+	[ -n "$target" ] && cd "$base/$target"
+}
+
+alias ls="eza -al --group-directories-first"
+
+PS1=$'\n%B%F{blue}%~%f%b\n%(?.%F{green}.%F{red})\u276F%f '
