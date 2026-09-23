@@ -55,6 +55,30 @@
     HandleLidSwitchExternalPower = "ignore";
   };
 
+  services.greetd = {
+    enable = true;
+    settings = {
+      initial_session = {
+        command = "shoji_wm --tty";
+        user = "blackade";
+      };
+      default_session = {
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd 'shoji_wm --tty'";
+        user = "greeter";
+      };
+    };
+  };
+
+  systemd.services.greetd.serviceConfig = {
+    Type = "idle";
+    StandardInput = "tty";
+    StandardOutput = "tty";
+    StandardError = "journal";
+    TTYReset = true;
+    TTYVHangup = true;
+    TTYVTDisallocate = true;
+  };
+
   users.users.blackade = {
     isNormalUser = true;
     shell = pkgs.zsh;
