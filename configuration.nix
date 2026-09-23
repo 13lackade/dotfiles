@@ -48,6 +48,10 @@
     jack.enable = true;
   };
 
+  services.logind.settings.Login = {
+    HandleLidSwitchExternalPower = "ignore";
+  };
+
   users.users.blackade = {
     isNormalUser = true;
     shell = pkgs.zsh;
