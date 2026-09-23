@@ -8,3 +8,5 @@ gcd() {
 alias ls="eza -al --group-directories-first"
 
 PS1=$'\n%B%F{blue}%~%f%b\n%(?.%F{green}.%F{red})\u276F%f '
+
+source ~/.local/share/zsh/site/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

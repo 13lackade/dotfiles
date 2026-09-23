@@ -33,3 +33,7 @@ fetch.github = "Shougo/ddu-kind-file"
 [nvim-treesitter]
 src.git = "https://github.com/nvim-treesitter/nvim-treesitter"
 fetch.github = "nvim-treesitter/nvim-treesitter"
+
+[zsh-syntax-highlighting]
+src.git = "https://github.com/zsh-users/zsh-syntax-highlighting"
+fetch.github = "zsh-users/zsh-syntax-highlighting"

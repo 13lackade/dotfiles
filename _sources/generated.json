@@ -187,5 +187,26 @@
             "type": "github"
         },
         "version": "f603a2f4da48728f80257fb5fbb90145fd1dc173"
+    },
+    "zsh-syntax-highlighting": {
+        "cargoLock": null,
+        "date": "2026-09-17",
+        "extract": null,
+        "name": "zsh-syntax-highlighting",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "zsh-users",
+            "repo": "zsh-syntax-highlighting",
+            "rev": "0bfcb582e71d3abe604ce67bc0fe5a21f377507e",
+            "sha256": "sha256-6yqlW0AWQ2xzl27OqhGjb4MS7yxKnxzLC4g/6riIhn4=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "0bfcb582e71d3abe604ce67bc0fe5a21f377507e"
     }
 }

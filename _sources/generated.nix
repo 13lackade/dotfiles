@@ -114,4 +114,16 @@
     };
     date = "2026-09-19";
   };
+  zsh-syntax-highlighting = {
+    pname = "zsh-syntax-highlighting";
+    version = "0bfcb582e71d3abe604ce67bc0fe5a21f377507e";
+    src = fetchFromGitHub {
+      owner = "zsh-users";
+      repo = "zsh-syntax-highlighting";
+      rev = "0bfcb582e71d3abe604ce67bc0fe5a21f377507e";
+      fetchSubmodules = false;
+      sha256 = "sha256-6yqlW0AWQ2xzl27OqhGjb4MS7yxKnxzLC4g/6riIhn4=";
+    };
+    date = "2026-09-17";
+  };
 }
