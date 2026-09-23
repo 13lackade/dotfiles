@@ -26,7 +26,10 @@
 
   networking.hostName = "beryllium";
 
-  networking.networkmanager.enable = true;
+  networking.networkmanager = {
+    enable = true;
+    wifi.powersave = false;
+  };
 
   time.timeZone = "Asia/Tokyo";
 
