@@ -20,6 +20,7 @@ in
     neovim
     ripgrep
     deno
+    uv
 
     tree-sitter
     gcc
