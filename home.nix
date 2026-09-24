@@ -20,6 +20,9 @@
     slack
     discord
   ];
+  systemd.user.sessionVariables = {
+    _JAVA_AWT_WM_NONREPARENTING = "1";
+  };
   home.stateVersion = "26.05";
 
   imports = [
