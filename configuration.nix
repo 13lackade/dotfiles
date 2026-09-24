@@ -90,5 +90,11 @@
 
   programs.zsh.enable = true;
 
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [ ];
+  };
+  environment.etc."ssl/cert.pem".source = "/etc/ssl/certs/ca-bundle.crt";
+
   system.stateVersion = "26.05";
 }
