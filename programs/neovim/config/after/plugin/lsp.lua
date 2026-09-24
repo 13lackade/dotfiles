@@ -14,3 +14,5 @@ vim.lsp.enable({
     'lua_ls',
     'pyright',
 })
+
+vim.lsp.semantic_tokens.enable(false)
