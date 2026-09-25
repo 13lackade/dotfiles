@@ -108,5 +108,7 @@
   };
   environment.etc."ssl/cert.pem".source = "/etc/ssl/certs/ca-bundle.crt";
 
+  environment.variables.EDITOR = null;
+
   system.stateVersion = "26.05";
 }
