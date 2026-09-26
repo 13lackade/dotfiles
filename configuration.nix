@@ -81,6 +81,21 @@
     };
   };
 
+  virtualisation.docker = {
+    enable = true;
+
+    enableOnBoot = true;
+
+    autoPrune = {
+      enable = true;
+      dates = "weekly";
+      flakgs = [
+        "--all"
+        "--volumes"
+      ];
+    };
+  };
+
   systemd.services.greetd.serviceConfig = {
     Type = "idle";
     StandardInput = "tty";
@@ -97,6 +112,7 @@
     extraGroups = [
       "wheel"
       "networkmanager"
+      "docker"
     ];
   };
 
