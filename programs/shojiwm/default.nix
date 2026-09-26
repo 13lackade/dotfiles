@@ -7,6 +7,9 @@
     wl-clipboard
     imagemagick
     bluez
+    hyprshot
+    swappy
+    mpv
 
     xdg-utils
     pavucontrol
