@@ -15,8 +15,6 @@
 
   home.username = "blackade";
   home.packages = with pkgs; [
-    mpv
-    antigravity-cli
     slack
     discord
   ];
