@@ -89,7 +89,7 @@
     autoPrune = {
       enable = true;
       dates = "weekly";
-      flakgs = [
+      flags = [
         "--all"
         "--volumes"
       ];
