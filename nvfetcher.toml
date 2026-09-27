@@ -37,3 +37,11 @@ fetch.github = "nvim-treesitter/nvim-treesitter"
 [zsh-syntax-highlighting]
 src.git = "https://github.com/zsh-users/zsh-syntax-highlighting"
 fetch.github = "zsh-users/zsh-syntax-highlighting"
+
+["lean.nvim"]
+src.git = "https://github.com/Julian/lean.nvim"
+fetch.github = "Julian/lean.nvim"
+
+[tree-sitter-lean]
+src.git = "https://github.com/Julian/tree-sitter-lean"
+fetch.github = "Julian/tree-sitter-lean"

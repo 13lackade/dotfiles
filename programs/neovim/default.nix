@@ -33,15 +33,30 @@ in
     source = symlink "${dotfiles}/programs/neovim/config";
     recursive = true;
   };
-  xdg.dataFile = plug [
-    "catppuccin.nvim"
-    "nvim-lspconfig"
-    "nvim-treesitter"
-    "denops.vim"
-    "ddu.vim"
-    "ddu-ui-ff"
-    "ddu-source-file_rec"
-    "ddu-filter-matcher_substring"
-    "ddu-kind-file"
-  ];
+  xdg.dataFile =
+    plug [
+      "catppuccin.nvim"
+      "nvim-lspconfig"
+      "nvim-treesitter"
+      "denops.vim"
+      "ddu.vim"
+      "ddu-ui-ff"
+      "ddu-source-file_rec"
+      "ddu-filter-matcher_substring"
+      "ddu-kind-file"
+      {
+        name = "lean.nvim";
+        opt = true;
+      }
+    ]
+    // {
+      "nvim/site/treesitter.json".text = builtins.toJSON {
+        lean = {
+          url = plugins.tree-sitter-lean.src.gitRepoUrl;
+          revision = plugins.tree-sitter-lean.src.rev;
+          queries = "queries";
+          tier = 2;
+        };
+      };
+    };
 }

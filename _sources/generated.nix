@@ -90,29 +90,53 @@
     };
     date = "2026-05-15";
   };
+  "lean.nvim" = {
+    pname = "lean.nvim";
+    version = "fdbd4dfc3782644f6fff77c654f599ab61201cab";
+    src = fetchFromGitHub {
+      owner = "Julian";
+      repo = "lean.nvim";
+      rev = "fdbd4dfc3782644f6fff77c654f599ab61201cab";
+      fetchSubmodules = false;
+      sha256 = "sha256-sGJfxbD3Ch4+CJ68V5r9r7u4g7WY4syk1z5MvgElZyk=";
+    };
+    date = "2026-09-22";
+  };
   nvim-lspconfig = {
     pname = "nvim-lspconfig";
-    version = "ffd261c09c3dabd0bf1a438f47a8ae3b22f3c3ff";
+    version = "a9bb4d5f4276aa5cddc015faa3ecc5a7b5a26b14";
     src = fetchFromGitHub {
       owner = "neovim";
       repo = "nvim-lspconfig";
-      rev = "ffd261c09c3dabd0bf1a438f47a8ae3b22f3c3ff";
+      rev = "a9bb4d5f4276aa5cddc015faa3ecc5a7b5a26b14";
       fetchSubmodules = false;
-      sha256 = "sha256-zHc0w8uExt7+5U3YrGT+Eg815htZXtWFOkT2Tm172V4=";
+      sha256 = "sha256-9XFik7vpA6ETPQM7KhJR2WZPlBa++Aw2NRr5GUnEmgM=";
     };
-    date = "2026-09-18";
+    date = "2026-09-26";
   };
   nvim-treesitter = {
     pname = "nvim-treesitter";
-    version = "f603a2f4da48728f80257fb5fbb90145fd1dc173";
+    version = "25a9b06a09ea4e10712bec37e7b7d9f423262b91";
     src = fetchFromGitHub {
       owner = "nvim-treesitter";
       repo = "nvim-treesitter";
-      rev = "f603a2f4da48728f80257fb5fbb90145fd1dc173";
+      rev = "25a9b06a09ea4e10712bec37e7b7d9f423262b91";
       fetchSubmodules = false;
-      sha256 = "sha256-fXBJhWvjzBGivIiAys9oy2JB9h99CNIk+AdGkGgHgPg=";
+      sha256 = "sha256-J7WpwqpYbwCsmaLWj5hCUpqQyTCb68N3abEQVA9Z81A=";
     };
-    date = "2026-09-19";
+    date = "2026-09-26";
+  };
+  tree-sitter-lean = {
+    pname = "tree-sitter-lean";
+    version = "259a2daf7a699cc047221f1e043e4d045fcd6be2";
+    src = fetchFromGitHub {
+      owner = "Julian";
+      repo = "tree-sitter-lean";
+      rev = "259a2daf7a699cc047221f1e043e4d045fcd6be2";
+      fetchSubmodules = false;
+      sha256 = "sha256-6g9DRLer/GZbGnv0qk8MEMGHJ84PHH/7ty4bbfNFvWw=";
+    };
+    date = "2026-09-06";
   };
   zsh-syntax-highlighting = {
     pname = "zsh-syntax-highlighting";
