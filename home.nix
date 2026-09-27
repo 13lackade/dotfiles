@@ -32,6 +32,7 @@
     ./programs/zsh
     ./programs/tmux
     ./programs/neovim
+    ./programs/agents.nix
     ./programs/skk.nix
     ./programs/zen.nix
     ./programs/fontconfig.nix
