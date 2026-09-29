@@ -44,6 +44,14 @@ in
       "ddu-source-file_rec"
       "ddu-filter-matcher_substring"
       "ddu-kind-file"
+      "ddc.vim"
+      "pum.vim"
+      "ddc-around"
+      "ddc-matcher_head"
+      "ddc-sorter_rank"
+      "ddc-converter_remove_overlap"
+      "ddc-ui-pum"
+      "ddc-source-lsp"
       {
         name = "lean.nvim";
         opt = true;

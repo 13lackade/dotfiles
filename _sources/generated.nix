@@ -18,6 +18,90 @@
     };
     date = "2026-08-09";
   };
+  ddc-around = {
+    pname = "ddc-around";
+    version = "277b926fdb3b642572cc756d52a42f18ac7c6059";
+    src = fetchFromGitHub {
+      owner = "Shougo";
+      repo = "ddc-around";
+      rev = "277b926fdb3b642572cc756d52a42f18ac7c6059";
+      fetchSubmodules = false;
+      sha256 = "sha256-5KT1verDM4My7ow+9nswHPsSUNmdqsyx1H3jd2SKp3k=";
+    };
+    date = "2026-07-03";
+  };
+  ddc-converter_remove_overlap = {
+    pname = "ddc-converter_remove_overlap";
+    version = "685ab33137e50d2c3e7a0f0beb89fd1b2ae81168";
+    src = fetchFromGitHub {
+      owner = "Shougo";
+      repo = "ddc-converter_remove_overlap";
+      rev = "685ab33137e50d2c3e7a0f0beb89fd1b2ae81168";
+      fetchSubmodules = false;
+      sha256 = "sha256-CcJT/jHCuBTNtpQ3lVtF/K0mb2GS7G6UkC8k04cDqc8=";
+    };
+    date = "2026-06-20";
+  };
+  ddc-matcher_head = {
+    pname = "ddc-matcher_head";
+    version = "7a52b2facb97a352fcd900baca1b4efa7b652176";
+    src = fetchFromGitHub {
+      owner = "Shougo";
+      repo = "ddc-matcher_head";
+      rev = "7a52b2facb97a352fcd900baca1b4efa7b652176";
+      fetchSubmodules = false;
+      sha256 = "sha256-toNCobCS9NiLQewXZpKyZvuA3AZ83v/rhUbMkV1WOOQ=";
+    };
+    date = "2026-06-24";
+  };
+  ddc-sorter_rank = {
+    pname = "ddc-sorter_rank";
+    version = "0d58fe698528dfeaf895eb70791c1b5e8a1d2288";
+    src = fetchFromGitHub {
+      owner = "Shougo";
+      repo = "ddc-sorter_rank";
+      rev = "0d58fe698528dfeaf895eb70791c1b5e8a1d2288";
+      fetchSubmodules = false;
+      sha256 = "sha256-0iLK7vdkZ27sMUho3SK7NHh77uL+aLpIjqkSOuKc5j8=";
+    };
+    date = "2026-07-03";
+  };
+  ddc-source-lsp = {
+    pname = "ddc-source-lsp";
+    version = "f25867c80c4ebab19ce4d9d32d85aabd646c8d56";
+    src = fetchFromGitHub {
+      owner = "Shougo";
+      repo = "ddc-source-lsp";
+      rev = "f25867c80c4ebab19ce4d9d32d85aabd646c8d56";
+      fetchSubmodules = false;
+      sha256 = "sha256-a8qc4CR0ZMstGVw+CfF/t0n+CSIJmsg8wII6CaZt4p8=";
+    };
+    date = "2026-08-11";
+  };
+  ddc-ui-pum = {
+    pname = "ddc-ui-pum";
+    version = "0679df221520576d07add3cf4219d478db110801";
+    src = fetchFromGitHub {
+      owner = "Shougo";
+      repo = "ddc-ui-pum";
+      rev = "0679df221520576d07add3cf4219d478db110801";
+      fetchSubmodules = false;
+      sha256 = "sha256-6KRKuovKkYUdtyirZ/UNvtAZzgtVgc+EGVTETq2Hu2U=";
+    };
+    date = "2026-07-07";
+  };
+  "ddc.vim" = {
+    pname = "ddc.vim";
+    version = "372197e8f2a1a04fc7fdace6719d1f67fa5ca31b";
+    src = fetchFromGitHub {
+      owner = "Shougo";
+      repo = "ddc.vim";
+      rev = "372197e8f2a1a04fc7fdace6719d1f67fa5ca31b";
+      fetchSubmodules = false;
+      sha256 = "sha256-92WzXJAHyGV3iZbairWF8eSZV+xRRq4bsnawDfyb4UA=";
+    };
+    date = "2026-09-26";
+  };
   ddu-filter-matcher_substring = {
     pname = "ddu-filter-matcher_substring";
     version = "01eae40a1aedec5093d6b20f48441acc8bc4436c";
@@ -92,15 +176,15 @@
   };
   "lean.nvim" = {
     pname = "lean.nvim";
-    version = "fdbd4dfc3782644f6fff77c654f599ab61201cab";
+    version = "c15b1cea82ccb6c0bc1ee16ec12632fc04219087";
     src = fetchFromGitHub {
       owner = "Julian";
       repo = "lean.nvim";
-      rev = "fdbd4dfc3782644f6fff77c654f599ab61201cab";
+      rev = "c15b1cea82ccb6c0bc1ee16ec12632fc04219087";
       fetchSubmodules = false;
-      sha256 = "sha256-sGJfxbD3Ch4+CJ68V5r9r7u4g7WY4syk1z5MvgElZyk=";
+      sha256 = "sha256-BmAGenhyn4d9Tv0nmcCSgGsWebVSYrAK73dU4iMJa9M=";
     };
-    date = "2026-09-22";
+    date = "2026-09-27";
   };
   nvim-lspconfig = {
     pname = "nvim-lspconfig";
@@ -116,15 +200,27 @@
   };
   nvim-treesitter = {
     pname = "nvim-treesitter";
-    version = "25a9b06a09ea4e10712bec37e7b7d9f423262b91";
+    version = "728e031f6b11d03d1f0708b7dc4fb0f1d9c8a137";
     src = fetchFromGitHub {
       owner = "nvim-treesitter";
       repo = "nvim-treesitter";
-      rev = "25a9b06a09ea4e10712bec37e7b7d9f423262b91";
+      rev = "728e031f6b11d03d1f0708b7dc4fb0f1d9c8a137";
       fetchSubmodules = false;
-      sha256 = "sha256-J7WpwqpYbwCsmaLWj5hCUpqQyTCb68N3abEQVA9Z81A=";
+      sha256 = "sha256-z6e3Dvp8TQDjTRglfVq0B+7Ejozwnw/zSvpGuSy6rbY=";
     };
-    date = "2026-09-26";
+    date = "2026-09-27";
+  };
+  "pum.vim" = {
+    pname = "pum.vim";
+    version = "c7140bef217dbb6bf8f41e8c649d2c6a8a3d6e05";
+    src = fetchFromGitHub {
+      owner = "Shougo";
+      repo = "pum.vim";
+      rev = "c7140bef217dbb6bf8f41e8c649d2c6a8a3d6e05";
+      fetchSubmodules = false;
+      sha256 = "sha256-5KsNU842iEa1tm2feJowW4g+JIbfpN5jG4/yjfdyvIQ=";
+    };
+    date = "2026-09-19";
   };
   tree-sitter-lean = {
     pname = "tree-sitter-lean";

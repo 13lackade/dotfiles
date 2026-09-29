@@ -30,13 +30,41 @@ fetch.github = "Shougo/ddu-filter-matcher_substring"
 src.git = "https://github.com/Shougo/ddu-kind-file"
 fetch.github = "Shougo/ddu-kind-file"
 
+["ddc.vim"]
+src.git = "https://github.com/Shougo/ddc.vim"
+fetch.github = "Shougo/ddc.vim"
+
+["pum.vim"]
+src.git = "https://github.com/Shougo/pum.vim"
+fetch.github = "Shougo/pum.vim"
+
+[ddc-around]
+src.git = "https://github.com/Shougo/ddc-around"
+fetch.github = "Shougo/ddc-around"
+
+[ddc-matcher_head]
+src.git = "https://github.com/Shougo/ddc-matcher_head"
+fetch.github = "Shougo/ddc-matcher_head"
+
+[ddc-sorter_rank]
+src.git = "https://github.com/Shougo/ddc-sorter_rank"
+fetch.github = "Shougo/ddc-sorter_rank"
+
+[ddc-converter_remove_overlap]
+src.git = "https://github.com/Shougo/ddc-converter_remove_overlap"
+fetch.github = "Shougo/ddc-converter_remove_overlap"
+
+[ddc-ui-pum]
+src.git = "https://github.com/Shougo/ddc-ui-pum"
+fetch.github = "Shougo/ddc-ui-pum"
+
+[ddc-source-lsp]
+src.git = "https://github.com/Shougo/ddc-source-lsp"
+fetch.github = "Shougo/ddc-source-lsp"
+
 [nvim-treesitter]
 src.git = "https://github.com/nvim-treesitter/nvim-treesitter"
 fetch.github = "nvim-treesitter/nvim-treesitter"
-
-[zsh-syntax-highlighting]
-src.git = "https://github.com/zsh-users/zsh-syntax-highlighting"
-fetch.github = "zsh-users/zsh-syntax-highlighting"
 
 ["lean.nvim"]
 src.git = "https://github.com/Julian/lean.nvim"
@@ -45,3 +73,8 @@ fetch.github = "Julian/lean.nvim"
 [tree-sitter-lean]
 src.git = "https://github.com/Julian/tree-sitter-lean"
 fetch.github = "Julian/tree-sitter-lean"
+
+[zsh-syntax-highlighting]
+src.git = "https://github.com/zsh-users/zsh-syntax-highlighting"
+fetch.github = "zsh-users/zsh-syntax-highlighting"
+
