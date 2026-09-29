@@ -62,7 +62,10 @@
         prettyName = "ShojiWM";
         comment = "ShojiWM managed by UWSM";
         binPath = "/run/current-system/sw/bin/shoji_wm";
-        extraArgs = [ "--tty" ];
+        extraArgs = [
+          "--tty"
+          "--log-off"
+        ];
       };
     };
   };

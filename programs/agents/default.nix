@@ -1,4 +1,9 @@
-{ pkgs, symlink, dotfiles, ... }:
+{
+  pkgs,
+  symlink,
+  dotfiles,
+  ...
+}:
 {
   home.packages = with pkgs; [
     antigravity-cli
