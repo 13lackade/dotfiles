@@ -32,6 +32,8 @@
     configurationLimit = 5;
   };
   boot.loader.efi.canTouchEfiVariables = true;
+  
+  boot.tmp.cleanOnBoot = true;
 
   networking.hostName = "beryllium";
 
