@@ -45,10 +45,7 @@
           {
             programs.shojiwm = {
               enable = true;
-              initConfig = {
-                enable = true;
-                users = [ "blackade" ];
-              };
+              initConfig.enable = false;
             };
           }
 

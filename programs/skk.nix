@@ -1,11 +1,13 @@
 { pkgs, ... }:
 let
-  mkKeymap = parent: builtins.toJSON {
-    include = [ "default/${parent}" ];
-    define.keymap = {
-      "\\" = null;
+  mkKeymap =
+    parent:
+    builtins.toJSON {
+      include = [ "default/${parent}" ];
+      define.keymap = {
+        "\\" = null;
+      };
     };
-  };
 in
 {
   i18n.inputMethod = {
