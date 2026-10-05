@@ -25,6 +25,7 @@
 
   environment.systemPackages = with pkgs; [
     git
+    # simple-scan
   ];
 
   boot.loader.systemd-boot = {
@@ -65,6 +66,19 @@
   services.logind.settings.Login = {
     HandleLidSwitchExternalPower = "ignore";
   };
+
+  services.printing = {
+    enable = true;
+    clientConf = ''
+      SSLOptions NoSystem MaxTLS1.2
+    '';
+  };
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+  # hardware.sane.enable = true;
 
   programs.uwsm = {
     enable = true;
