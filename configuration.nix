@@ -81,6 +81,8 @@
     };
   };
 
+  programs.dconf.enable = true;
+
   services.greetd = {
     enable = true;
     settings = {
