@@ -61,11 +61,6 @@ COMPOSITOR.cursor.configure({
   size: 24,
 });
 
-COMPOSITOR.process.once("GTK-CSD-control-buttons", {
-  command: "gsettings set org.gnome.desktop.wm.preferences button-layout ':minimize,maximize,close'",
-  runPolicy: "once-per-session",
-});
-
 COMPOSITOR.window.decoration.configure((_window, context) => {
   return { mode: context.clientPreference ?? "server" };
 });
@@ -200,6 +195,15 @@ WORKSPACE_IPC.handle("windows.activate", (params) => {
   }
 });
 
+WORKSPACE_IPC.handle("apps.launch", (params) => {
+  const app = (params as { app?: string } | undefined)?.app;
+  if (app === "slack") {
+    COMPOSITOR.process.spawn({ command: ["slack"] });
+  } else if (app === "discord") {
+    COMPOSITOR.process.spawn({ command: ["Discord"] });
+  }
+});
+
 // ---------------------------------------------------------------------------
 // Dock proximity: watch the pointer and broadcast enter/leave for the bottom
 // strip of each monitor. The bar uses this in place of a layer-shell trigger
@@ -315,7 +319,6 @@ COMPOSITOR.key.bind("terminal", "Super+T", () => {
   COMPOSITOR.process.spawn({ command: ["ghostty"] });
 });
 
-// if kwallet6 is used as the password store, be sure to add the --password-store=kwallet6 flag
 COMPOSITOR.key.bind("zen", "Super+B", () => {
   COMPOSITOR.process.spawn({
     command:
@@ -354,7 +357,6 @@ function toggleStartMenu() {
     command: ["ags", "request", "-i", "ags", "start-menu", "toggle", monitor],
   });
 }
-COMPOSITOR.key.bind("start-menu", "Super+A", toggleStartMenu);
 // Super tap (fires on release only, when no other key/button was pressed in between).
 COMPOSITOR.key.bind("start-menu-tap", "Super", toggleStartMenu, {
   on: "release",
@@ -392,12 +394,6 @@ COMPOSITOR.key.bind("tile-focus-left-quick", "Super+Left", () => {
 COMPOSITOR.key.bind("tile-focus-right-quick", "Super+Right", () => {
   HYBRID_WINDOW_MANAGER.focusTile(1);
 });
-COMPOSITOR.key.bind("tile-focus-left", "Super+Ctrl+Left", () => {
-  HYBRID_WINDOW_MANAGER.focusTile(-1);
-});
-COMPOSITOR.key.bind("tile-focus-right", "Super+Ctrl+Right", () => {
-  HYBRID_WINDOW_MANAGER.focusTile(1);
-});
 COMPOSITOR.key.bind("tile-move-left", "Super+Shift+Left", () => {
   HYBRID_WINDOW_MANAGER.moveFocusedTile(-1);
   scheduleWorkspaceBroadcast();
@@ -423,67 +419,44 @@ COMPOSITOR.key.bind("workspace-next", "Super+Ctrl+Down", () => {
   scheduleWorkspaceBroadcast();
 });
 
-let fpsCounter = false;
-COMPOSITOR.key.bind("fps", "Super+Shift+F", () => {
-  fpsCounter = !fpsCounter;
-  COMPOSITOR.debug.fpsCounter = fpsCounter;
-});
-
-let profileEnabled = false;
-COMPOSITOR.key.bind("profile", "Super+Shift+T", () => {
-  profileEnabled = !profileEnabled;
-  COMPOSITOR.debug.enableProfile(profileEnabled);
-});
+for (let index = 1; index <= 10; index++) {
+  COMPOSITOR.key.bind(`workspace-${index}`, `Super+${index % 10}`, () => {
+    const monitor = HYBRID_WINDOW_MANAGER.getCurrentMonitorName();
+    HYBRID_WINDOW_MANAGER.activate(monitor, index);
+    scheduleWorkspaceBroadcast();
+  });
+  COMPOSITOR.key.bind(
+    `window-move-workspace-${index}`,
+    `Super+Shift+${index % 10}`,
+    () => {
+      HYBRID_WINDOW_MANAGER.moveFocusedWindowToWorkspaceNumber(index);
+      scheduleWorkspaceBroadcast();
+    },
+  );
+}
 
 COMPOSITOR.output.configure((context) => {
   const display: DisplayConfigDraft = {};
+  const hdmi = context.connected.find(
+    (output) => output.name === "HDMI-A-1",
+  );
 
   display["eDP-1"] = {
     mode: "extend",
     resolution: "best",
-    position: "auto",
+    position: { x: 0, y: 0 },
     scale: 1.5,
     transform: "normal",
-  };
-  display["eDP-2"] = {
-    mode: "extend",
-    resolution: "best",
-    position: "auto",
-    scale: 1.5,
   };
   display["HDMI-A-1"] = {
     mode: "extend",
     resolution: "best",
-    position: "auto",
-    scale: 1.5,
+    // At scale 1, the HDMI mode height is also its logical height.
+    position: hdmi?.resolution
+      ? { x: 0, y: -hdmi.resolution.height }
+      : "auto",
+    scale: 1,
   };
-  display["DP-1"] = {
-    mode: "extend",
-    resolution: "best",
-    position: "auto",
-    scale: 1.5,
-  };
-  display["DP-4"] = {
-    mode: "extend",
-    resolution: "best",
-    position: "auto",
-    scale: 1.5,
-  };
-  display["DP-2"] = {
-    mode: "extend",
-    resolution: "best",
-    position: "auto",
-    scale: 1.6,
-  };
-
-  const isDocked = context.connected.some(
-    (output) => output.name === "HDMI-A-1",
-  );
-  if (isDocked) {
-    display["eDP-1"] = { mode: "disabled" };
-    display["eDP-2"] = { mode: "disabled" };
-  }
-
   return display;
 });
 
@@ -513,14 +486,10 @@ COMPOSITOR.input.configure((input, _context) => {
 HYBRID_WINDOW_MANAGER.configureWorkspaceGestureSpeed({
   workspaceScrollFactor: 1.5,
   workspaceScrollKineticFactor: 1,
-  workspaceSwitchFactor: 1,
-  workspaceSwitchVelocityFactor: 1,
   // At or below this scroll speed (logical px/s) the workspace scroll
   // catches on tile snap positions (fully-on-screen edges; center for
   // maximized tiles). 0 disables snapping.
   workspaceScrollSnapMaxVelocity: 600,
-  // Finger travel (logical px) needed to break out of a caught position.
-  workspaceScrollSnapBreakoutPx: 48,
 });
 
 COMPOSITOR.effect.background_effect = compileEffect({

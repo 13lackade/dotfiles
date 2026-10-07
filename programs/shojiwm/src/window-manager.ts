@@ -26,6 +26,7 @@ import {
 } from "shoji_wm";
 import type { ManagedWindowRect, WindowSizeConstraints } from "shoji_wm/types";
 import { playRectAnimation, stopRectAnimation } from "./window-animation";
+import { layoutTiles, tileIndexAtPoint, type TileRect } from "./tile-layout";
 
 export type SnapZone =
   | "maximize"
@@ -159,11 +160,7 @@ const TILE_DRAG_WORKSPACE_EDGE_PX = 80;
 const TILE_DRAG_WORKSPACE_SWITCH_INTERVAL_MS = 420;
 const TILE_GAP = 12;
 const TILE_MARGIN = 12;
-const TILE_WIDTH_RATIO = 0.5;
 const TILE_MIN_WIDTH = 240;
-// Fractional-scale rounding can leave a tile a hair past the screen edge;
-// overflow at or below this is "fully visible" for the focus-key pan step.
-const TILE_FOCUS_OVERFLOW_EPSILON = 1;
 const MANAGED_WINDOW_ONLY_REBUILD_SUPPRESSION = {
   allowManagedWindowOnly: true,
   onViolation: "fallback-last",
@@ -1183,6 +1180,7 @@ export class HybridWindowManager {
             window,
             nextRect,
             event.currentPointer.x,
+            event.currentPointer.y,
           );
           this.emitSnapPreview(
             targetWorkspace.monitor,
@@ -1284,6 +1282,7 @@ export class HybridWindowManager {
       window,
       event.currentRect,
       event.currentPointer.x,
+      event.currentPointer.y,
     );
     this.emitSnapPreview(
       targetWorkspace.monitor,
@@ -1313,10 +1312,7 @@ export class HybridWindowManager {
 
       window.state[WINDOW_STATE_RESTORE_RECT].set(null);
       window.state[WINDOW_STATE_MAXIMIZED].set(true);
-      // Maximizing changes this tile's effective width to the viewport width.
-      // Recenter it even when it is already active; focusWindow() intentionally
-      // skips active windows and would otherwise leave the old, narrower
-      // tile's scroll offset in place.
+      // Keep maximized clients in their assigned tile while tiled.
       workspace.panToWindow(window);
       this.applyWorkspaceStackPolicy(workspace);
       window.focus();
@@ -1535,6 +1531,21 @@ export class HybridWindowManager {
   }
 
   public moveFocusedWindowToWorkspace(direction: -1 | 1) {
+    this.moveFocusedWindowToWorkspaceIndex((index) =>
+      Math.max(1, index + direction),
+    );
+  }
+
+  public moveFocusedWindowToWorkspaceNumber(index: number) {
+    if (!Number.isInteger(index) || index < 1) {
+      return;
+    }
+    this.moveFocusedWindowToWorkspaceIndex(() => index);
+  }
+
+  private moveFocusedWindowToWorkspaceIndex(
+    resolveIndex: (currentIndex: number) => number,
+  ) {
     withManagedWindowOnlySSDRebuildSuppressed(() => {
       this.syncWorkspaces();
 
@@ -1550,7 +1561,7 @@ export class HybridWindowManager {
       }
 
       const fromWorkspace = focused.workspace;
-      const targetIndex = Math.max(1, fromWorkspace.index + direction);
+      const targetIndex = resolveIndex(fromWorkspace.index);
       if (targetIndex === fromWorkspace.index) {
         return;
       }
@@ -1753,7 +1764,7 @@ export class HybridWindowManager {
           workspaces.push({
             index: active,
             windowCount: 0,
-            isTiled: false,
+            isTiled: true,
             active: true,
             windows: [],
           });
@@ -3338,7 +3349,7 @@ export class Workspace {
   private kineticScrollPoll: PollHandle | null = null;
   private kineticScrollToken = 0;
   public monitor: string;
-  public isTiled = false;
+  public isTiled = true;
 
   public constructor(
     index: number,
@@ -3963,23 +3974,14 @@ export class Workspace {
 
     const viewportRect = this.tileViewportRect();
     this.lastAppliedTileViewportRect = snapshotManagedRect(viewportRect);
-    const tileHeight = read(viewportRect.height);
-    let nextX = read(viewportRect.x) - this.physicalAlignedScrollOffset();
+    const tileRects = this.tileRects(tileable, viewportRect);
     const appliedRects: Record<string, ManagedWindowRect> = {};
     this.lastDraggingSlotRect = null;
 
     tileable.forEach((window, index) => {
-      const tileWidth = this.tileWidthForWindow(window, viewportRect);
       const rect = window.state[WINDOW_STATE_FULLSCREEN]()
         ? this.fullscreenRootRect(window)
-        : window.state[WINDOW_STATE_MAXIMIZED]()
-          ? this.maximizedTileRect(window, nextX)
-          : {
-              x: nextX,
-              y: read(viewportRect.y),
-              width: tileWidth,
-              height: tileHeight,
-            };
+        : tileRects[index];
       appliedRects[window.id] = rect;
       if (window.id === this.draggingWindowId) {
         this.lastDraggingSlotRect = rect;
@@ -4001,7 +4003,6 @@ export class Workspace {
           window.state[WINDOW_STATE_RECT].set(rect);
         }
       }
-      nextX += tileWidth + (index === tileable.length - 1 ? 0 : TILE_GAP);
     });
 
     hotReloadDebug("workspace-apply-layout", {
@@ -4118,6 +4119,7 @@ export class Workspace {
     window: WaylandWindow,
     rect: ManagedWindowRect,
     pointerX: number,
+    pointerY: number,
   ) {
     if (this.draggingWindowId !== window.id) {
       this.beginTileDrag(window, rect);
@@ -4125,7 +4127,7 @@ export class Workspace {
     this.activeWindowId = window.id;
     this.moveTileWindowToIndex(
       window,
-      this.tileInsertionIndexForPointer(window, pointerX),
+      this.tileInsertionIndexForPointer(pointerX, pointerY),
     );
     stopRectAnimation(window, WINDOW_STATE_RECT);
     window.state[WINDOW_STATE_RECT].set(rect);
@@ -4164,11 +4166,7 @@ export class Workspace {
     this.applyLayout();
   }
 
-  /**
-   * "Go to this window": center the target in the viewport (overriding the
-   * normal `scrollToWindow` which is a no-op when already visible) and animate
-   * the layout. Used by dock clicks and any other "jump to window" gesture.
-   */
+  /** Activate a tile from the dock without moving the workspace viewport. */
   public panToWindow(window: WaylandWindow) {
     if (!this.isTiled) {
       return;
@@ -4536,12 +4534,6 @@ export class Workspace {
     const activeIndex = tileable.findIndex(
       (window) => window.id === this.activeWindowId,
     );
-    if (
-      activeIndex >= 0 &&
-      this.panActiveTileIntoView(tileable, activeIndex, direction)
-    ) {
-      return;
-    }
     const fallbackIndex = this.focusFallbackTileIndex(tileable, direction);
     const currentIndex =
       activeIndex >= 0
@@ -4552,49 +4544,6 @@ export class Workspace {
     this.scrollToWindow(tileable[nextIndex]);
     this.applyLayout();
     this.focusActiveWindow();
-  }
-
-  /**
-   * When the focused tile sticks out of the screen on the side the focus key
-   * is heading, the key press pans the tile fully into view instead of
-   * advancing to the neighbor — moving on only happens once the window is
-   * within the screen. Overflow on the opposite side doesn't block: fixing it
-   * would scroll against the pressed direction, so the key advances as usual.
-   * A tile wider than the screen aligns its near edge first and the next
-   * press advances.
-   *
-   * "Within the screen" is measured against the usable area, not the tile
-   * viewport: the viewport is inset by TILE_MARGIN for cosmetic spacing, and
-   * content inside that margin is still on screen. Maximized tiles in
-   * particular are wider than the viewport by design (MAXIMIZED_WINDOW_PADDING
-   * < TILE_MARGIN), so an inset-viewport check would eat one key press on a
-   * 4px invisible pan for every fully-visible maximized tile.
-   */
-  private panActiveTileIntoView(
-    tileable: WaylandWindow[],
-    index: number,
-    direction: -1 | 1,
-  ): boolean {
-    const viewportRect = this.tileViewportRect();
-    const viewportWidth = read(viewportRect.width);
-    const windowLeft = this.tileLeftForIndex(tileable, index, viewportRect);
-    const windowRight =
-      windowLeft + this.tileWidthForWindow(tileable[index], viewportRect);
-    const overflow =
-      direction < 0
-        ? this.scrollOffset - windowLeft - TILE_MARGIN
-        : windowRight - (this.scrollOffset + viewportWidth) - TILE_MARGIN;
-    if (overflow <= TILE_FOCUS_OVERFLOW_EPSILON) {
-      return false;
-    }
-
-    this.stopKineticScroll();
-    this.scrollOffset =
-      direction < 0 ? windowLeft : windowRight - viewportWidth;
-    this.clampScrollOffset(tileable.length);
-    this.applyLayout();
-    this.focusActiveWindow();
-    return true;
   }
 
   private focusFallbackTileIndex(
@@ -4828,25 +4777,14 @@ export class Workspace {
   }
 
   private tileInsertionIndexForPointer(
-    window: WaylandWindow,
     pointerX: number,
+    pointerY: number,
   ): number {
-    const tileable = this.tileableWindows().filter(
-      (current) => current.id !== window.id,
+    return tileIndexAtPoint(
+      this.tileRects(this.tileableWindows(), this.tileViewportRect()),
+      pointerX,
+      pointerY,
     );
-    const viewportRect = this.tileViewportRect();
-    const contentX = pointerX - read(viewportRect.x) + this.scrollOffset;
-    let left = 0;
-
-    for (let index = 0; index < tileable.length; index++) {
-      const width = this.tileWidthForWindow(tileable[index], viewportRect);
-      if (contentX < left + width / 2) {
-        return index;
-      }
-      left += width + TILE_GAP;
-    }
-
-    return tileable.length;
   }
 
   private tileInsertionIndexAfterFocusedWindow(): number {
@@ -5052,82 +4990,40 @@ export class Workspace {
   }
 
   private scrollToWindow(
-    window: WaylandWindow,
-    options: { force?: boolean } = {},
+    _window: WaylandWindow,
+    _options: { force?: boolean } = {},
   ) {
     this.stopKineticScroll();
-
-    const tileable = this.tileableWindows();
-    const index = tileable.findIndex((current) => current.id === window.id);
-    if (index < 0) {
-      return;
-    }
-
-    const viewportRect = this.tileViewportRect();
-    const viewportWidth = read(viewportRect.width);
-    const windowLeft = this.tileLeftForIndex(tileable, index, viewportRect);
-    const windowRight =
-      windowLeft + this.tileWidthForWindow(window, viewportRect);
-
-    if (window.state[WINDOW_STATE_MAXIMIZED]() || options.force) {
-      // Center the window in the viewport. `force` is set by dock-style "go to
-      // this window" requests where we always want a visible pan, even when
-      // the target is already on-screen.
-      this.scrollOffset =
-        windowLeft + (windowRight - windowLeft) / 2 - viewportWidth / 2;
-    } else if (windowLeft < this.scrollOffset) {
-      this.scrollOffset = windowLeft;
-    } else if (windowRight > this.scrollOffset + viewportWidth) {
-      this.scrollOffset = windowRight - viewportWidth;
-    }
-
-    this.clampScrollOffset(tileable.length);
+    this.scrollOffset = 0;
   }
 
-  private clampScrollOffset(tileCount: number) {
-    const tileable = this.tileableWindows();
-    const viewportRect = this.tileViewportRect();
-    const viewportWidth = read(viewportRect.width);
-    const contentWidth = this.tileContentWidth(
-      tileable.slice(0, tileCount),
-      viewportRect,
+  private clampScrollOffset(_tileCount: number) {
+    this.scrollOffset = 0;
+  }
+
+  private tileRects(
+    tileable: WaylandWindow[],
+    viewportRect: ManagedWindowRect,
+  ): TileRect[] {
+    return layoutTiles(
+      {
+        x: read(viewportRect.x),
+        y: read(viewportRect.y),
+        width: read(viewportRect.width),
+        height: read(viewportRect.height),
+      },
+      tileable.length,
+      TILE_GAP,
     );
-    const maxScrollOffset = Math.max(0, contentWidth - viewportWidth);
-    this.scrollOffset = clamp(this.scrollOffset, 0, maxScrollOffset);
   }
 
   private tileWidthForWindow(
     window: WaylandWindow,
     viewportRect: ManagedWindowRect,
   ): number {
-    if (window.state[WINDOW_STATE_MAXIMIZED]()) {
-      return read(this.maximizedRootRect(window).width);
-    }
-
-    const width =
-      this.tileWidthByWindowId.get(window.id) ??
-      this.defaultTileWidth(viewportRect);
-    return clamp(
-      width,
-      this.minTileWidth(window, viewportRect),
-      Math.max(
-        this.minTileWidth(window, viewportRect),
-        this.maxTileWidth(window),
-      ),
-    );
-  }
-
-  private maximizedTileRect(
-    window: WaylandWindow,
-    x: number,
-  ): ManagedWindowRect {
-    const maximizedRect = this.maximizedRootRect(window);
-    return {
-      x,
-      y: read(maximizedRect.y),
-      width: read(maximizedRect.width),
-      height: read(maximizedRect.height),
-    };
+    const tileable = this.tileableWindows();
+    const index = tileable.findIndex((current) => current.id === window.id);
+    return this.tileRects(tileable, viewportRect)[index]?.width ?? 0;
   }
 
   private setTileWidthFromRect(
@@ -5149,13 +5045,6 @@ export class Workspace {
           this.maxTileWidth(window),
         ),
       ),
-    );
-  }
-
-  private defaultTileWidth(viewportRect: ManagedWindowRect): number {
-    return Math.max(
-      TILE_MIN_WIDTH,
-      read(viewportRect.width) * TILE_WIDTH_RATIO,
     );
   }
 
@@ -5184,18 +5073,6 @@ export class Workspace {
     return Math.max(0, read(natural.width) - window.position.width);
   }
 
-  private tileLeftForIndex(
-    tileable: WaylandWindow[],
-    index: number,
-    viewportRect: ManagedWindowRect,
-  ): number {
-    let left = 0;
-    for (let i = 0; i < index; i++) {
-      left += this.tileWidthForWindow(tileable[i], viewportRect) + TILE_GAP;
-    }
-    return left;
-  }
-
   private tileContentWidth(
     tileable: WaylandWindow[],
     viewportRect: ManagedWindowRect,
@@ -5203,13 +5080,7 @@ export class Workspace {
     if (tileable.length === 0) {
       return 0;
     }
-    return (
-      tileable.reduce(
-        (sum, window) => sum + this.tileWidthForWindow(window, viewportRect),
-        0,
-      ) +
-      (tileable.length - 1) * TILE_GAP
-    );
+    return read(viewportRect.width);
   }
 
   private tileViewportRect(): ManagedWindowRect {

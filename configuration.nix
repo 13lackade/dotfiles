@@ -125,6 +125,10 @@
       ];
     };
   };
+  virtualisation.libvirtd.enable = true;
+  virtualisation.spiceUSBRedirection.enable = true;
+
+  programs.virt-manager.enable = true;
 
   systemd.services.greetd.serviceConfig = {
     Type = "idle";
@@ -143,6 +147,7 @@
       "wheel"
       "networkmanager"
       "docker"
+      "libvirtd"
     ];
   };
 

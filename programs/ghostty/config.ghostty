@@ -15,3 +15,6 @@ resize-overlay = never
 window-padding-balance = true
 window-padding-color = extend
 window-decoration = none
+
+# mouse
+mouse-scroll-multiplier = discrete:1
