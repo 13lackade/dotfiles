@@ -28,6 +28,8 @@ in
     clang-tools
     lua-language-server
     pyright
+    vtsls
+    vscode-langservers-extracted
   ];
   xdg.configFile."nvim" = {
     source = symlink "${dotfiles}/programs/neovim/config";

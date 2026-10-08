@@ -17,6 +17,10 @@ vim.lsp.enable({
     'clangd',
     'lua_ls',
     'pyright',
+    'vtsls',
+    'html',
+    'cssls',
+    'jsonls',
 })
 
 vim.lsp.semantic_tokens.enable(false)
