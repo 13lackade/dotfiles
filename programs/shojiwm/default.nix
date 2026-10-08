@@ -49,4 +49,12 @@
   dconf.settings."org/gnome/desktop/wm/preferences" = {
     button-layout = ":minimize,maximize,close";
   };
+
+  gtk = {
+    enable = true;
+    font = {
+      name = "Noto Sans";
+      size = 11;
+    };
+  };
 }
