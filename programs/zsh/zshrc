@@ -5,7 +5,8 @@ gcd() {
 	[ -n "$target" ] && cd "$base/$target"
 }
 
-alias ls="eza -al --group-directories-first"
+alias ls="eza -l --group-directories-first"
+alias la="eza -al --group-directories-first"
 
 PS1=$'\n%B%F{blue}%~%f%b\n%(?.%F{green}.%F{red})\u276F%f '
 
