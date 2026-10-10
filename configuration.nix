@@ -23,6 +23,13 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 16 * 1024;
+    }
+  ];
+
   environment.systemPackages = with pkgs; [
     git
     # simple-scan
