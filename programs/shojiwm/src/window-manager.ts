@@ -3,7 +3,7 @@ import {
   createWindowState,
   dropWindowState,
   cubicBezier,
-  createManagedPoll,
+  createPoll,
   markManagedWindowDirty,
   markWindowDirty,
   read,
@@ -4488,7 +4488,7 @@ export class Workspace {
       return;
     }
 
-    this.kineticScrollPoll = createManagedPoll(
+    this.kineticScrollPoll = createPoll(
       intervalMs,
       (handle) => {
         if (this.kineticScrollToken !== token || !this.isTiled) {
@@ -4507,7 +4507,7 @@ export class Workspace {
         lastTime = now;
         step(dtMs);
       },
-      "none",
+      { output: this.monitor, dirty: "none" },
     );
   }
 
