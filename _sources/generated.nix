@@ -188,27 +188,27 @@
   };
   nvim-lspconfig = {
     pname = "nvim-lspconfig";
-    version = "db68de3575fff9dd9bb78b34c8371759ed35fe34";
+    version = "c59fc922f718fa055f69f5f3bc888f23211571eb";
     src = fetchFromGitHub {
       owner = "neovim";
       repo = "nvim-lspconfig";
-      rev = "db68de3575fff9dd9bb78b34c8371759ed35fe34";
+      rev = "c59fc922f718fa055f69f5f3bc888f23211571eb";
       fetchSubmodules = false;
-      sha256 = "sha256-+LHqtAWAR6UW2ud+pp0Lw4w3YOLVhjS8tW2jjGbh6Ps=";
+      sha256 = "sha256-alHRKcXu379vCunnIeCVdSRfWFVE8qs9IHs7XtnlDEo=";
     };
-    date = "2026-10-07";
+    date = "2026-10-09";
   };
   nvim-treesitter = {
     pname = "nvim-treesitter";
-    version = "e289100ff98969e118c702199d88b764ce9e7fdf";
+    version = "1a4f47b03dfe92d28de7d5654c67327ef008c9e6";
     src = fetchFromGitHub {
       owner = "nvim-treesitter";
       repo = "nvim-treesitter";
-      rev = "e289100ff98969e118c702199d88b764ce9e7fdf";
+      rev = "1a4f47b03dfe92d28de7d5654c67327ef008c9e6";
       fetchSubmodules = false;
-      sha256 = "sha256-SzY06VxjUr6uG6f1Brn4qsb3t7hZMd3JAzl0D15Xcxk=";
+      sha256 = "sha256-lqltLeAEVJLXOhmhcKEDPTZYWYcjOHWaILZyMM3rZx4=";
     };
-    date = "2026-10-03";
+    date = "2026-10-10";
   };
   "pum.vim" = {
     pname = "pum.vim";
@@ -236,14 +236,14 @@
   };
   zsh-syntax-highlighting = {
     pname = "zsh-syntax-highlighting";
-    version = "0bfcb582e71d3abe604ce67bc0fe5a21f377507e";
+    version = "e6683f20e5c38d3e5447f45845d04ddda75d0f23";
     src = fetchFromGitHub {
       owner = "zsh-users";
       repo = "zsh-syntax-highlighting";
-      rev = "0bfcb582e71d3abe604ce67bc0fe5a21f377507e";
+      rev = "e6683f20e5c38d3e5447f45845d04ddda75d0f23";
       fetchSubmodules = false;
-      sha256 = "sha256-6yqlW0AWQ2xzl27OqhGjb4MS7yxKnxzLC4g/6riIhn4=";
+      sha256 = "sha256-ekCMmobd/OaCYStIoEx0l0HEn+6cD98jPlG8lMLl5bQ=";
     };
-    date = "2026-09-17";
+    date = "2026-10-09";
   };
 }
