@@ -14,15 +14,6 @@
   };
 
   home.username = "blackade";
-  home.packages = with pkgs; [
-    slack
-    discord
-  ];
-  systemd.user.sessionVariables = {
-    _JAVA_AWT_WM_NONREPARENTING = "1";
-    EDITOR = "nvim";
-    VISUAL = "nvim";
-  };
   home.stateVersion = "26.05";
 
   imports = [

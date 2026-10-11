@@ -69,4 +69,9 @@ in
         };
       };
     };
+
+  systemd.user.sessionVariables = {
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+  };
 }

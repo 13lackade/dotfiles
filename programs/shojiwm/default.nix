@@ -22,6 +22,9 @@
     pavucontrol
 
     bibata-cursors
+
+    slack
+    discord
   ];
 
   xdg.configFile = {
@@ -56,5 +59,9 @@
       name = "Noto Sans";
       size = 11;
     };
+  };
+
+  systemd.user.sessionVariables = {
+    _JAVA_AWT_WM_NONREPARENTING = "1";
   };
 }
