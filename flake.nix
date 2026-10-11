@@ -27,7 +27,6 @@
       self,
       nixpkgs,
       home-manager,
-      shojiwm,
       ...
     }@inputs:
     let
@@ -36,18 +35,13 @@
     in
     {
       nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
+        specialArgs = inputs;
+
         modules = [
           ./configuration
 
+          ./hardware-configuration.nix
           ./hardware/fmvu90h1.nix
-
-          shojiwm.nixosModules.default
-          {
-            programs.shojiwm = {
-              enable = true;
-              initConfig.enable = false;
-            };
-          }
 
           home-manager.nixosModules.home-manager
           {

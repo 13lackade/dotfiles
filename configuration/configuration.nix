@@ -4,25 +4,7 @@
   pkgs,
   ...
 }:
-
 {
-  imports = [
-    ../hardware-configuration.nix
-  ];
-
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
-
-  nix.gc = {
-    automatic = true;
-    dates = "daily";
-    options = "--delete-older-than 7d";
-  };
-
-  nixpkgs.config.allowUnfree = true;
-
   swapDevices = [
     {
       device = "/var/lib/swapfile";
@@ -170,6 +152,4 @@
   environment.etc."ssl/cert.pem".source = "/etc/ssl/certs/ca-bundle.crt";
 
   environment.variables.EDITOR = null;
-
-  system.stateVersion = "26.05";
 }
