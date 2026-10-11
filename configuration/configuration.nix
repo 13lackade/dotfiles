@@ -7,7 +7,7 @@
 
 {
   imports = [
-    ./hardware-configuration.nix
+    ../hardware-configuration.nix
   ];
 
   nix.settings.experimental-features = [
@@ -45,7 +45,7 @@
   boot.tmp.cleanOnBoot = true;
 
   networking.hostName = "beryllium";
-
+  networking.nftables.enable = true;
   networking.networkmanager = {
     enable = true;
     wifi.powersave = false;
@@ -135,6 +135,7 @@
   };
   virtualisation.libvirtd.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
+  virtualisation.incus.enable = true;
 
   programs.virt-manager.enable = true;
 
@@ -156,6 +157,7 @@
       "networkmanager"
       "docker"
       "libvirtd"
+      "incus-admin"
     ];
   };
 

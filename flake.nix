@@ -37,7 +37,7 @@
     {
       nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
         modules = [
-          ./configuration.nix
+          ./configuration
 
           ./hardware/fmvu90h1.nix
 

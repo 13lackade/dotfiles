@@ -7,4 +7,4 @@
 - コミット、push、PR作成、外部サービスへの書き込みは、明示的に依頼されない限り実行しない。
 - NixOS環境である。既存の開発環境を優先して使用する。開発環境が未構築の場合、`flake.nix` があれば `nix develop`、なければ必要に応じて `nix shell` を使用する。
 
-@/home/blackade/.codex/RTK.md
+@RTK.md
