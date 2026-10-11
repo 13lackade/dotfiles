@@ -5,26 +5,9 @@
   ...
 }:
 {
-  environment.systemPackages = with pkgs; [
-    git
-    # simple-scan
-  ];
-
-  networking.hostName = "beryllium";
-  networking.nftables.enable = true;
-  networking.networkmanager = {
-    enable = true;
-    wifi.powersave = false;
-  };
-
   time.timeZone = "Asia/Tokyo";
 
   i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  #   useXkbConfig = true;
-  # };
 
   security.rtkit.enable = true;
   services.pipewire = {
@@ -50,7 +33,6 @@
     nssmdns4 = true;
     openFirewall = true;
   };
-  # hardware.sane.enable = true;
 
   programs.uwsm = {
     enable = true;
@@ -82,27 +64,6 @@
       };
     };
   };
-
-  virtualisation.docker = {
-    enable = true;
-
-    enableOnBoot = true;
-
-    autoPrune = {
-      enable = true;
-      dates = "weekly";
-      flags = [
-        "--all"
-        "--volumes"
-      ];
-    };
-  };
-  virtualisation.libvirtd.enable = true;
-  virtualisation.spiceUSBRedirection.enable = true;
-  virtualisation.incus.enable = true;
-
-  programs.virt-manager.enable = true;
-
   systemd.services.greetd.serviceConfig = {
     Type = "idle";
     StandardInput = "tty";
