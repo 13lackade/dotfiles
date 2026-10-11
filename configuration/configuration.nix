@@ -5,26 +5,10 @@
   ...
 }:
 {
-  swapDevices = [
-    {
-      device = "/var/lib/swapfile";
-      size = 16 * 1024;
-    }
-  ];
-
   environment.systemPackages = with pkgs; [
     git
     # simple-scan
   ];
-
-  boot.loader.systemd-boot = {
-    enable = true;
-    configurationLimit = 5;
-  };
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.timeout = 0;
-
-  boot.tmp.cleanOnBoot = true;
 
   networking.hostName = "beryllium";
   networking.nftables.enable = true;
@@ -41,8 +25,6 @@
   #   keyMap = "us";
   #   useXkbConfig = true;
   # };
-
-  hardware.bluetooth.enable = true;
 
   security.rtkit.enable = true;
   services.pipewire = {
