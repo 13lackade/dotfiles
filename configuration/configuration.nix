@@ -34,46 +34,6 @@
     openFirewall = true;
   };
 
-  programs.uwsm = {
-    enable = true;
-    waylandCompositors = {
-      shojiwm = {
-        prettyName = "ShojiWM";
-        comment = "ShojiWM managed by UWSM";
-        binPath = "/run/current-system/sw/bin/shoji_wm";
-        extraArgs = [
-          "--tty"
-          "--log-off"
-        ];
-      };
-    };
-  };
-
-  programs.dconf.enable = true;
-
-  services.greetd = {
-    enable = true;
-    settings = {
-      initial_session = {
-        command = "${pkgs.uwsm}/bin/uwsm start shojiwm-uwsm.desktop";
-        user = "blackade";
-      };
-      default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd '${pkgs.uwsm}/bin/uwsm start shojiwm-uwsm.desktop'";
-        user = "greeter";
-      };
-    };
-  };
-  systemd.services.greetd.serviceConfig = {
-    Type = "idle";
-    StandardInput = "tty";
-    StandardOutput = "tty";
-    StandardError = "journal";
-    TTYReset = true;
-    TTYVHangup = true;
-    TTYVTDisallocate = true;
-  };
-
   users.users.blackade = {
     isNormalUser = true;
     shell = pkgs.zsh;
@@ -95,4 +55,6 @@
   environment.etc."ssl/cert.pem".source = "/etc/ssl/certs/ca-bundle.crt";
 
   environment.variables.EDITOR = null;
+
+  programs.dconf.enable = true;
 }

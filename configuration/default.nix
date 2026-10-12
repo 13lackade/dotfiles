@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
     git
@@ -11,6 +11,7 @@
     ./boot.nix
     ./networking.nix
     ./virtualisation.nix
+    ./greeter.nix
   ];
 
   system.stateVersion = "26.05";
