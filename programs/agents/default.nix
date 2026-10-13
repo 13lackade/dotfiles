@@ -35,4 +35,5 @@
   };
 
   home.file.".codex/AGENTS.md".source = symlink "${dotfiles}/programs/agents/AGENTS.md";
+  home.file.".gemini/AGENTS.md".source = symlink "${dotfiles}/programs/agents/AGENTS.md";
 }
