@@ -5,4 +5,9 @@
     enable = true;
     setAsDefaultBrowser = true;
   };
+  xdg.mimeApps = {
+    defaultApplications = {
+      "application/pdf" = "zen-beta.desktop";
+    };
+  };
 }

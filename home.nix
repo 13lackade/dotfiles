@@ -16,6 +16,8 @@
   home.username = "blackade";
   home.stateVersion = "26.05";
 
+  xdg.mimeApps.enable = true;
+
   imports = [
     ./programs/git
     ./programs/ghostty
