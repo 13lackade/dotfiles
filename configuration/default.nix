@@ -12,6 +12,7 @@
     ./networking.nix
     ./virtualisation.nix
     ./greeter.nix
+    ./snapshots.nix
   ];
 
   system.stateVersion = "26.05";
