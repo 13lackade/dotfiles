@@ -1,4 +1,3 @@
-{ pkgs, ... }:
 {
   services.btrbk.instances.home = {
     onCalendar = "hourly";
@@ -23,7 +22,5 @@
       "/home"
       "/.snapshots/home"
     ];
-    # Skip until /home has been migrated to a subvolume (see README.md).
-    serviceConfig.ExecCondition = "+${pkgs.btrfs-progs}/bin/btrfs subvolume show /home";
   };
 }
