@@ -32,6 +32,7 @@ import {
   TITLEBAR_HEIGHT,
   WINDOW_BORDER_PX,
   WINDOW_STATE_FULLSCREEN,
+  WINDOW_STATE_HIDDEN_BY_MAXIMIZE,
   WINDOW_STATE_MINIMIZED,
   WINDOW_STATE_MINIMIZE_VISUAL_IDLE,
   WINDOW_STATE_TILE_DRAGGING,
@@ -388,6 +389,9 @@ COMPOSITOR.key.bind("close-focused-window", "Super+Q", () => {
 COMPOSITOR.key.bind("toggle-focused-window-maximize", "Super+M", () => {
   HYBRID_WINDOW_MANAGER.toggleFocusedWindowMaximize();
 });
+COMPOSITOR.key.bind("toggle-focused-window-maximize-f", "Super+F", () => {
+  HYBRID_WINDOW_MANAGER.toggleFocusedWindowMaximize();
+});
 COMPOSITOR.key.bind("tile-focus-left-quick", "Super+Left", () => {
   HYBRID_WINDOW_MANAGER.focusTile(-1);
 });
@@ -481,15 +485,6 @@ COMPOSITOR.input.configure((input, _context) => {
       layout: "jp",
     },
   };
-});
-
-HYBRID_WINDOW_MANAGER.configureWorkspaceGestureSpeed({
-  workspaceScrollFactor: 1.5,
-  workspaceScrollKineticFactor: 1,
-  // At or below this scroll speed (logical px/s) the workspace scroll
-  // catches on tile snap positions (fully-on-screen edges; center for
-  // maximized tiles). 0 disables snapping.
-  workspaceScrollSnapMaxVelocity: 600,
 });
 
 COMPOSITOR.effect.background_effect = compileEffect({
@@ -757,7 +752,13 @@ COMPOSITOR.window.composition = (window: WaylandWindow) => {
   });
   const minimizeVisualIdle = window.state[WINDOW_STATE_MINIMIZE_VISUAL_IDLE];
   const inactive = computed(
-    () => minimizeVisualIdle() || (!workspaceVisible() && !tileDragging()),
+    () =>
+      window.state[WINDOW_STATE_HIDDEN_BY_MAXIMIZE]() ||
+      minimizeVisualIdle() ||
+      (!workspaceVisible() && !tileDragging()),
+  );
+  const visible = window.state[WINDOW_STATE_HIDDEN_BY_MAXIMIZE](
+    (hidden) => !hidden,
   );
 
   const borderColor = window.isFocused((focused) =>
@@ -868,6 +869,7 @@ COMPOSITOR.window.composition = (window: WaylandWindow) => {
       <ManagedWindow
         rect={managedRect}
         zIndex={FULLSCREEN_Z_INDEX}
+        visible={visible}
         visibleOutputs={window.state[WINDOW_STATE_VISIBLE_OUTPUTS]}
         opacity={workspaceOpacity}
         forceRectSize={forceRectSize}
@@ -891,6 +893,7 @@ COMPOSITOR.window.composition = (window: WaylandWindow) => {
       <ManagedWindow
         rect={managedRect}
         zIndex={zIndex}
+        visible={visible}
         visibleOutputs={window.state[WINDOW_STATE_VISIBLE_OUTPUTS]}
         opacity={workspaceOpacity}
         forceRectSize={forceRectSize}
@@ -925,6 +928,7 @@ COMPOSITOR.window.composition = (window: WaylandWindow) => {
     <ManagedWindow
       rect={managedRect}
       zIndex={zIndex}
+      visible={visible}
       visibleOutputs={window.state[WINDOW_STATE_VISIBLE_OUTPUTS]}
       opacity={workspaceOpacity}
       forceRectSize={forceRectSize}
