@@ -23,6 +23,7 @@
 
     bibata-cursors
 
+    firefox
     slack
     discord
   ];
