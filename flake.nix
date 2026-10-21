@@ -16,9 +16,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     zen-browser = {
-      # Keep Zen at 1.23.2b until a stable release includes the compact-mode fix:
-      # https://github.com/zen-browser/desktop/pull/16001
-      url = "github:0xc000022070/zen-browser-flake/9342d127aa8c585e82f3f57ddb25800fd546029f";
+      url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
