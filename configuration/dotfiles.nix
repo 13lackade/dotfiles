@@ -14,6 +14,8 @@
           install -o blackade -g users -m 0644 \
             ${../hardware-configuration.nix} \
             "$dotfiles/hardware-configuration.nix"
+          runuser -u blackade -- ${pkgs.git}/bin/git -C "$dotfiles" \
+            remote set-url origin git@github.com:13lackade/dotfiles.git
         fi
       fi
     '';
