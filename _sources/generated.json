@@ -127,7 +127,7 @@
     },
     "ddc-ui-pum": {
         "cargoLock": null,
-        "date": "2026-07-07",
+        "date": "2026-10-23",
         "extract": null,
         "name": "ddc-ui-pum",
         "passthru": null,
@@ -139,12 +139,12 @@
             "name": null,
             "owner": "Shougo",
             "repo": "ddc-ui-pum",
-            "rev": "0679df221520576d07add3cf4219d478db110801",
-            "sha256": "sha256-6KRKuovKkYUdtyirZ/UNvtAZzgtVgc+EGVTETq2Hu2U=",
+            "rev": "1f9f10cf1d26b7398ad7fa810954f79366969204",
+            "sha256": "sha256-qSO/muUcBaG1a9JeNF4J211Vdv9wdbrZnvNRVkyjeh4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0679df221520576d07add3cf4219d478db110801"
+        "version": "1f9f10cf1d26b7398ad7fa810954f79366969204"
     },
     "ddc.vim": {
         "cargoLock": null,
@@ -337,7 +337,7 @@
     },
     "nvim-treesitter": {
         "cargoLock": null,
-        "date": "2026-10-19",
+        "date": "2026-10-24",
         "extract": null,
         "name": "nvim-treesitter",
         "passthru": null,
@@ -349,16 +349,16 @@
             "name": null,
             "owner": "nvim-treesitter",
             "repo": "nvim-treesitter",
-            "rev": "29212d826054bb2948fa9d3a99eca9bf6a050eb2",
-            "sha256": "sha256-AVEAmYYl94+Llyp63Sq1VRRJDruNBVmJRmKCIU9vorw=",
+            "rev": "a2f694478be07f89c2d03cc17858a8745a400c4b",
+            "sha256": "sha256-oVOlF+pX0+dN+hbu1Zol6+fRgHbjvHpb9NMP08WNOEQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "29212d826054bb2948fa9d3a99eca9bf6a050eb2"
+        "version": "a2f694478be07f89c2d03cc17858a8745a400c4b"
     },
     "pum.vim": {
         "cargoLock": null,
-        "date": "2026-10-01",
+        "date": "2026-10-23",
         "extract": null,
         "name": "pum.vim",
         "passthru": null,
@@ -370,12 +370,12 @@
             "name": null,
             "owner": "Shougo",
             "repo": "pum.vim",
-            "rev": "4ed3576e3399fa65611be00670a084702f110acb",
-            "sha256": "sha256-RIHbIpM6NqGzKpIkBmHvGDRCOnw/4jFYxduk/Mnxf74=",
+            "rev": "ad96cdd07ccd78fbbe27607630f0c1cf70b3a9c0",
+            "sha256": "sha256-VhkMUIc644av+zTz6YFGTZPECmO8SREazxOjWgf+Byc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "4ed3576e3399fa65611be00670a084702f110acb"
+        "version": "ad96cdd07ccd78fbbe27607630f0c1cf70b3a9c0"
     },
     "tree-sitter-lean": {
         "cargoLock": null,
