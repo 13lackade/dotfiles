@@ -8,6 +8,11 @@
 }:
 {
   home.packages = with pkgs; [
+    (writeShellScriptBin "shojiwm-output-scale" ''
+      # Deno requires --allow-all for access to Linux sysfs.
+      exec ${deno}/bin/deno run --no-config --no-lock --allow-all \
+        ${./output-scale.ts} "$@"
+    '')
     inputs.ags.packages.${pkgs.stdenv.hostPlatform.system}.agsFull
     brightnessctl
     cliphist

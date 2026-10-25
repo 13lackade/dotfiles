@@ -27,6 +27,7 @@ import {
 } from "shoji_wm";
 import type { CompositionRenderable, ManagedWindowRect } from "shoji_wm/types";
 import { createIpcServer } from "shoji_wm/ipc";
+import { displayScale, type PhysicalSize } from "./display-scale";
 import {
   HybridWindowManager,
   TITLEBAR_HEIGHT,
@@ -439,28 +440,50 @@ for (let index = 1; index <= 10; index++) {
   );
 }
 
+let physicalSizes: Record<string, PhysicalSize> = {};
+
+WORKSPACE_IPC.handle("outputs.physicalSizes", (params) => {
+  if (!params || typeof params !== "object" || Array.isArray(params)) return;
+  const sizes: Record<string, PhysicalSize> = {};
+  for (const [name, value] of Object.entries(params)) {
+    const size = value as Partial<PhysicalSize> | null;
+    if (
+      size && typeof size.width === "number" && typeof size.height === "number" &&
+      Number.isFinite(size.width) && Number.isFinite(size.height) &&
+      size.width > 0 && size.height > 0
+    ) {
+      sizes[name] = { width: size.width, height: size.height };
+    }
+  }
+  if (JSON.stringify(sizes) === JSON.stringify(physicalSizes)) return;
+  physicalSizes = sizes;
+  COMPOSITOR.output.reconfigure();
+});
+
+function refreshPhysicalSizes() {
+  COMPOSITOR.process.spawn({ command: ["shojiwm-output-scale"] });
+}
+
+COMPOSITOR.onEnable(refreshPhysicalSizes);
+COMPOSITOR.event.onOutputChange((event) => {
+  // Scale/resolution changes also emit this event. Only connection changes
+  // require reading EDID again, avoiding a refresh loop after applying scale.
+  if (event.added.length > 0 || event.removed.length > 0) {
+    refreshPhysicalSizes();
+  }
+});
+
 COMPOSITOR.output.configure((context) => {
   const display: DisplayConfigDraft = {};
-  const hdmi = context.connected.find(
-    (output) => output.name === "HDMI-A-1",
-  );
-
-  display["eDP-1"] = {
-    mode: "extend",
-    resolution: "best",
-    position: { x: 0, y: 0 },
-    scale: 1.5,
-    transform: "normal",
-  };
-  display["HDMI-A-1"] = {
-    mode: "extend",
-    resolution: "best",
-    // At scale 1, the HDMI mode height is also its logical height.
-    position: hdmi?.resolution
-      ? { x: 0, y: -hdmi.resolution.height }
-      : "auto",
-    scale: 1,
-  };
+  for (const output of context.connected) {
+    display[output.name] = {
+      mode: "extend",
+      resolution: "best",
+      position: "auto",
+      scale: displayScale(output.resolution, physicalSizes[output.name]),
+      transform: "normal",
+    };
+  }
   return display;
 });
 
