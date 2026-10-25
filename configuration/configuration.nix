@@ -57,4 +57,6 @@
   environment.variables.EDITOR = null;
 
   programs.dconf.enable = true;
+
+  services.gvfs.enable = true;
 }

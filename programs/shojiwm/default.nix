@@ -20,6 +20,7 @@
 
     xdg-utils
     pavucontrol
+    thunar
 
     bibata-cursors
 
@@ -56,6 +57,15 @@
 
   gtk = {
     enable = true;
+    colorScheme = "dark";
+    theme = {
+      name = "Adwaita-dark";
+      package = pkgs.gnome-themes-extra;
+    };
+    iconTheme = {
+      name = "Papirus-Dark";
+      package = pkgs.papirus-icon-theme;
+    };
     font = {
       name = "Noto Sans";
       size = 11;
