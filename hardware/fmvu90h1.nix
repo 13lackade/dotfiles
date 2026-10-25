@@ -9,17 +9,4 @@
     options snd-sof tplg_filename=sof-hda-generic-2ch-pdm1.tplg
     options snd-sof-pci tplg_filename=sof-hda-generic-2ch-pdm1.tplg
   '';
-
-  fileSystems = {
-    "/".options = [ "compress=zstd" ];
-  };
-
-  swapDevices = [
-    {
-      device = "/var/lib/swapfile";
-      size = 16 * 1024;
-    }
-  ];
-
-  hardware.bluetooth.enable = true;
 }

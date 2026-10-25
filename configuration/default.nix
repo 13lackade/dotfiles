@@ -12,7 +12,6 @@
     ./networking.nix
     ./virtualisation.nix
     ./greeter.nix
-    ./snapshots.nix
     ./dotfiles.nix
     ./home-manager.nix
   ];

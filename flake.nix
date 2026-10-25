@@ -33,12 +33,23 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in
     {
-      nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
-        modules = [
-          ./configuration
-          ./hosts/laptop
-        ];
+      nixosConfigurations = {
+        laptop = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./configuration
+            ./configuration/snapshots.nix
+            ./hosts/laptop
+          ];
+        };
+
+        vm = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./configuration
+            ./hosts/vm
+          ];
+        };
       };
 
       formatter.${system} = pkgs.nixfmt-tree;

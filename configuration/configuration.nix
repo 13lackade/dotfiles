@@ -18,10 +18,6 @@
     jack.enable = true;
   };
 
-  services.logind.settings.Login = {
-    HandleLidSwitchExternalPower = "ignore";
-  };
-
   services.printing = {
     enable = true;
     clientConf = ''
