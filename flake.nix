@@ -24,7 +24,6 @@
 
   outputs =
     {
-      self,
       nixpkgs,
       home-manager,
       ...
@@ -35,25 +34,10 @@
     in
     {
       nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
-        specialArgs = inputs;
-
+        specialArgs = { inherit inputs; };
         modules = [
           ./configuration
-
-          ./hardware-configuration.nix
-          ./hardware/fmvu90h1.nix
-
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-
-            home-manager.extraSpecialArgs = {
-              inherit inputs;
-            };
-
-            home-manager.users.blackade = import ./home.nix;
-          }
+          ./hosts/laptop
         ];
       };
 

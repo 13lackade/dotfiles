@@ -1,7 +1,6 @@
 { ... }:
 {
   networking = {
-    hostName = "beryllium";
     nftables.enable = true;
     networkmanager = {
       enable = true;

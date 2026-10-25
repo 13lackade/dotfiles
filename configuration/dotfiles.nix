@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, host, ... }:
 {
   system.activationScripts.dotfiles = {
     deps = [ "users" ];
@@ -11,9 +11,9 @@
         if runuser -u blackade -- ${pkgs.git}/bin/git clone \
           https://github.com/13lackade/dotfiles.git "$dotfiles"
         then
-          install -o blackade -g users -m 0644 \
-            ${../hardware-configuration.nix} \
-            "$dotfiles/hardware-configuration.nix"
+          install -D -o blackade -g users -m 0644 \
+            ${../hosts + "/${host}/hardware-configuration.nix"} \
+            "$dotfiles/hosts/${host}/hardware-configuration.nix"
           runuser -u blackade -- ${pkgs.git}/bin/git -C "$dotfiles" \
             remote set-url origin git@github.com:13lackade/dotfiles.git
         fi

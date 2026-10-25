@@ -14,6 +14,7 @@
     ./greeter.nix
     ./snapshots.nix
     ./dotfiles.nix
+    ./home-manager.nix
   ];
 
   system.stateVersion = "26.05";
