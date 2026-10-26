@@ -22,6 +22,7 @@
     deadnix
     shellcheck
     shfmt
+    bubblewrap
 
     gh
     nh
