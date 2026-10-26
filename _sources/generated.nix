@@ -176,15 +176,15 @@
   };
   "lean.nvim" = {
     pname = "lean.nvim";
-    version = "dcfc2ffe98ba825ba27afed81bf22f651182b896";
+    version = "dc27730b63801652c6af251ac5e2c61cf5584890";
     src = fetchFromGitHub {
       owner = "Julian";
       repo = "lean.nvim";
-      rev = "dcfc2ffe98ba825ba27afed81bf22f651182b896";
+      rev = "dc27730b63801652c6af251ac5e2c61cf5584890";
       fetchSubmodules = false;
-      sha256 = "sha256-oEKePl4f/Q7McJaHC6XU3qJzlGAF8+s2nJGYViv7jj4=";
+      sha256 = "sha256-zLHMrb0vW9LMuOQQNJmT6Mpe2Gcs7KiMSrNF793IZ9c=";
     };
-    date = "2026-10-20";
+    date = "2026-10-24";
   };
   nvim-lspconfig = {
     pname = "nvim-lspconfig";
