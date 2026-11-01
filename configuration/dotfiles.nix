@@ -3,11 +3,9 @@
   system.activationScripts.dotfiles = {
     deps = [ "users" ];
     text = ''
-      dotfiles=/home/blackade/Workspace/github.com/13lackade/dotfiles
+      dotfiles=/home/blackade/.dotfiles
 
       if [ ! -d "$dotfiles" ]; then
-        install -d -o blackade -g users "$(dirname "$dotfiles")"
-
         if runuser -u blackade -- ${pkgs.git}/bin/git clone \
           https://github.com/13lackade/dotfiles.git "$dotfiles"
         then

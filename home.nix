@@ -2,7 +2,7 @@
 {
   _module.args = {
     symlink = config.lib.file.mkOutOfStoreSymlink;
-    dotfiles = "${config.home.homeDirectory}/Workspace/github.com/13lackade/dotfiles";
+    dotfiles = "${config.home.homeDirectory}/.dotfiles";
     plugins = import ./_sources/generated.nix {
       inherit (pkgs)
         fetchurl
