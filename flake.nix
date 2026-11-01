@@ -51,16 +51,16 @@
             standalone = true;
           };
 
-          pkgs = import nixpkgs { 
-            inherit system; 
+          pkgs = import nixpkgs {
+            inherit system;
             config.allowUnfree = true;
           };
 
           modules = [
             ./home.nix
-            { 
+            {
               home.username = "denjo";
-              home.homeDirectory = "/home/denjo"; 
+              home.homeDirectory = "/home/denjo";
               targets.genericLinux.enable = true;
             }
           ];

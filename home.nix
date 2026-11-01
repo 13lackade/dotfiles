@@ -1,4 +1,10 @@
-{ config, pkgs, lib, standalone, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  standalone,
+  ...
+}:
 {
   _module.args = {
     symlink = config.lib.file.mkOutOfStoreSymlink;
@@ -24,7 +30,8 @@
     ./programs/tmux
     ./programs/neovim
     ./programs/agents
-  ] ++ lib.optionals (!standalone) [
+  ]
+  ++ lib.optionals (!standalone) [
     ./programs/shojiwm
     ./programs/quickshell
     ./programs/skk.nix
