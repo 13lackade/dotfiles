@@ -19,7 +19,7 @@
   };
 
   outputs =
-    { nixpkgs, ... }@inputs:
+    { nixpkgs, home-manager, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -40,6 +40,28 @@
           modules = [
             ./configuration
             ./hosts/vm
+          ];
+        };
+      };
+
+      homeConfigurations = {
+        denjo = home-manager.lib.homeManagerConfiguration {
+          extraSpecialArgs = {
+            inherit inputs;
+            standalone = true;
+          };
+
+          pkgs = import nixpkgs { 
+            inherit system; 
+            config.allowUnfree = true;
+          };
+
+          modules = [
+            ./home.nix
+            { 
+              home.username = "denjo";
+              home.homeDirectory = "/home/denjo"; 
+            }
           ];
         };
       };
