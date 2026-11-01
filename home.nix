@@ -15,7 +15,7 @@
 
   home.stateVersion = "26.05";
 
-  xdg.mimeApps.enable = true;
+  xdg.mimeApps.enable = !standalone;
 
   imports = [
     ./programs/git
