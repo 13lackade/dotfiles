@@ -21,6 +21,12 @@ PanelWindow {
     readonly property string wifiIcon: !Networking.wifiEnabled || !currentWifi ? "wifi-off" : currentWifi.signalStrength >= 0.7 ? "wifi-full" : currentWifi.signalStrength >= 0.4 ? "wifi-midium" : "wifi-low"
     PwObjectTracker { objects: [Pipewire.defaultAudioSink] }
 
+    TrayMenu {
+        id: trayMenu
+        shell: bar.shell
+        screenHeight: bar.monitor.height
+    }
+
     component BarButton: Rectangle {
         id: button
         property string label: ""
@@ -97,8 +103,15 @@ PanelWindow {
                     anchors.fill: parent
                     onClicked: {
                         if (trayItem.modelData.hasMenu) {
-                            let point = trayItem.mapToItem(bar.contentItem, 0, trayItem.height)
-                            trayItem.modelData.display(bar, point.x, point.y)
+                            if (trayMenu.visible && trayMenu.trayItem === trayItem.modelData) {
+                                trayMenu.visible = false
+                            } else {
+                                trayMenu.visible = false
+                                bar.shell.menu = ""
+                                trayMenu.trayItem = trayItem.modelData
+                                trayMenu.anchorItem = trayItem
+                                trayMenu.visible = true
+                            }
                         } else trayItem.modelData.activate()
                     }
                 }
