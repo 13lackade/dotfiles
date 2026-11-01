@@ -61,6 +61,7 @@
             { 
               home.username = "denjo";
               home.homeDirectory = "/home/denjo"; 
+              targets.genericLinux.enable = true;
             }
           ];
         };
