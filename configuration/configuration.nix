@@ -10,6 +10,8 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   security.rtkit.enable = true;
+  services.upower.enable = true;
+  services.power-profiles-daemon.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -43,6 +45,7 @@
   };
 
   programs.zsh.enable = true;
+  security.pam.services.swaylock = { };
 
   programs.nix-ld = {
     enable = true;

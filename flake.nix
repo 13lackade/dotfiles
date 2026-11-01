@@ -7,10 +7,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    ags = {
-      url = "github:Aylur/ags";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     shojiwm = {
       url = "github:bea4dev/ShojiWM";
       inputs.nixpkgs.follows = "nixpkgs";

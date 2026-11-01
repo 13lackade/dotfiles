@@ -297,13 +297,8 @@ COMPOSITOR.process.once("fcitx5", {
   runPolicy: "once-per-session",
 });
 
-// GTK_A11Y=none disables the AT-SPI accessibility bridge for the bar. A status
-// bar never needs a screen reader, and GTK 4.22's accessibility relation
-// handling can melt down into a recursive notify storm (100% CPU) when a
-// GMenuModel-backed popover's model is destroyed while open — e.g. quitting an
-// app from its system-tray menu. Must be set before GTK init, hence here.
 COMPOSITOR.process.once("shell", {
-  command: "cd ~/.config/shoji-bar-2 && GTK_A11Y=none ags run app.tsx",
+  command: ["quickshell"],
   runPolicy: "once-per-session",
 });
 // cliphist clipboard history watchers. Text and image need separate watchers;
@@ -352,22 +347,22 @@ COMPOSITOR.key.bind("prev", "XF86AudioPrev", () => {
   COMPOSITOR.process.spawn({ command: "playerctl previous" });
 });
 
-// Resolve the monitor under the cursor and toggle shoji-bar-2's StartMenu via ags request.
+// Resolve the monitor under the cursor and toggle the shell's start menu.
 function toggleStartMenu() {
   const monitor = HYBRID_WINDOW_MANAGER.getCurrentMonitorName();
   COMPOSITOR.process.spawn({
-    command: ["ags", "request", "-i", "ags", "start-menu", "toggle", monitor],
+    command: ["quickshell", "ipc", "call", "shell", "startMenu", monitor],
   });
 }
 // Super tap (fires on release only, when no other key/button was pressed in between).
 COMPOSITOR.key.bind("start-menu-tap", "Super", toggleStartMenu, {
   on: "release",
 });
-// Toggle shoji-bar-2's clipboard history on the monitor under the cursor.
+// Toggle clipboard history on the monitor under the cursor.
 COMPOSITOR.key.bind("clipboard", "Super+V", () => {
   const monitor = HYBRID_WINDOW_MANAGER.getCurrentMonitorName();
   COMPOSITOR.process.spawn({
-    command: ["ags", "request", "-i", "ags", "clipboard", "toggle", monitor],
+    command: ["quickshell", "ipc", "call", "shell", "clipboard", monitor],
   });
 });
 COMPOSITOR.key.bind("screenshot", "Super+P", () => {

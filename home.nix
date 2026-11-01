@@ -22,6 +22,7 @@
     ./programs/git
     ./programs/ghostty
     ./programs/shojiwm
+    ./programs/quickshell
     ./programs/zsh
     ./programs/tmux
     ./programs/neovim

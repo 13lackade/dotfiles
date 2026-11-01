@@ -1,6 +1,5 @@
 {
   pkgs,
-  inputs,
   osConfig,
   symlink,
   dotfiles,
@@ -13,7 +12,6 @@
       exec ${deno}/bin/deno run --no-config --no-lock --allow-all \
         ${./output-scale.ts} "$@"
     '')
-    inputs.ags.packages.${pkgs.stdenv.hostPlatform.system}.agsFull
     brightnessctl
     cliphist
     wl-clipboard
@@ -22,6 +20,7 @@
     hyprshot
     swappy
     mpv
+    playerctl
 
     xdg-utils
     pavucontrol
