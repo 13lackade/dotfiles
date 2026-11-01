@@ -67,9 +67,15 @@
       };
 
       formatter.${system} = pkgs.nixfmt-tree;
-      apps.${system}.update-plugins = {
-        type = "app";
-        program = "${pkgs.nvfetcher}/bin/nvfetcher";
+      apps.${system} = {
+        update-plugins = {
+          type = "app";
+          program = "${pkgs.nvfetcher}/bin/nvfetcher";
+        };
+        home-manager = {
+          type = "app";
+          program = "${home-manager.packages.${system}.home-manager}/bin/home-manager";
+        };
       };
     };
 }
