@@ -8,6 +8,7 @@ vim.opt.shiftwidth = 4
 
 vim.opt.wrap = false
 
+vim.g.clipboard = 'osc52'
 vim.opt.clipboard = 'unnamedplus'
 
 vim.opt.fillchars:append({ eob = ' ' })

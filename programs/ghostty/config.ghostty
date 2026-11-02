@@ -1,3 +1,6 @@
+# other config
+config-file = nix.ghostty
+
 # theme
 theme = Catppuccin Mocha
 
@@ -5,8 +8,6 @@ theme = Catppuccin Mocha
 confirm-close-surface = false
 
 # fonts 
-font-family = monospace
-font-feature = -calt, -liga, -dlig, +zero
 font-size = 12
 
 # window appearance
@@ -14,7 +15,11 @@ scrollbar = never
 resize-overlay = never
 window-padding-balance = true
 window-padding-color = extend
-window-decoration = none
 
 # mouse
 mouse-scroll-multiplier = discrete:1
+
+# clipboard
+clipboard-read = allow
+clipboard-write = allow
+app-notifications = no-clipboard-copy
