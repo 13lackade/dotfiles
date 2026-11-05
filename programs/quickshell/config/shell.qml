@@ -37,6 +37,19 @@ ShellRoot {
     function hidePopup(id) {
         popupNotifications = popupNotifications.filter(entry => entry.id !== id)
     }
+    function activateNotification(notification) {
+        let actions = notification?.actions || []
+        let action = actions.find(item => item.identifier === "default") || (actions.length === 1 ? actions[0] : null)
+        if (!action) return
+        hidePopup(notification.id)
+        action.invoke()
+    }
+    function notificationActionLabel(action, index) {
+        let label = (action.text || "").trim()
+        if (label) return label
+        if (action.identifier === "default") return "Open"
+        return action.identifier ? "Action: " + action.identifier : "Action " + (index + 1)
+    }
     function togglePin(id) {
         let next = pinned.slice()
         let selected = DesktopEntries.byId(id) || DesktopEntries.heuristicLookup(id)

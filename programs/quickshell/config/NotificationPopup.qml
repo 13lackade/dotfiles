@@ -30,6 +30,10 @@ PanelWindow {
                 radius: 9
                 color: "#ed29292d"
                 border.color: "#554e4e53"
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: shell.activateNotification(card.notification)
+                }
                 Connections {
                     target: card.notification
                     function onClosed() { shell.hidePopup(card.modelData.id) }
@@ -54,17 +58,21 @@ PanelWindow {
                     }
                     Text { Layout.fillWidth: true; text: card.notification?.summary || ""; color: "white"; font.bold: true; elide: Text.ElideRight; textFormat: Text.PlainText }
                     Text { Layout.fillWidth: true; visible: text !== ""; text: card.notification?.body || ""; color: "#dddddd"; elide: Text.ElideRight; maximumLineCount: 3; wrapMode: Text.Wrap; textFormat: Text.PlainText }
-                    Row {
+                    Flow {
+                        id: actionsFlow
+                        Layout.fillWidth: true
                         spacing: 5
-                        visible: children.length > 0
+                        visible: (card.notification?.actions.length || 0) > 0
                         Repeater {
                             model: card.notification?.actions || []
                             Rectangle {
+                                id: actionButton
                                 required property var modelData
-                                width: actionText.implicitWidth + 18; height: 28; radius: 5
+                                required property int index
+                                width: Math.min(actionText.implicitWidth + 18, actionsFlow.width); height: 28; radius: 5
                                 color: actionHit.containsMouse ? "#88cddd" : "#48484c"
-                                Text { id: actionText; anchors.centerIn: parent; text: parent.modelData.text; color: actionHit.containsMouse ? "#111111" : "white"; font.pixelSize: 12 }
-                                MouseArea { id: actionHit; anchors.fill: parent; hoverEnabled: true; onClicked: { let action = parent.modelData; shell.hidePopup(card.modelData.id); action.invoke() } }
+                                Text { id: actionText; anchors { fill: parent; leftMargin: 9; rightMargin: 9 } verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; elide: Text.ElideRight; textFormat: Text.PlainText; text: shell.notificationActionLabel(actionButton.modelData, actionButton.index); color: actionHit.containsMouse ? "#111111" : "white"; font.pixelSize: 12 }
+                                MouseArea { id: actionHit; anchors.fill: parent; hoverEnabled: true; onClicked: { let action = actionButton.modelData; shell.hidePopup(card.modelData.id); action.invoke() } }
                             }
                         }
                     }

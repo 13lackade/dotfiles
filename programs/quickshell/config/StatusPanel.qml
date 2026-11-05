@@ -97,7 +97,7 @@ Item {
         implicitHeight: 27
         radius: 6
         color: hit.containsMouse ? "#555555" : "#3a3a3a"
-        Text { id: caption; anchors.centerIn: parent; text: button.label; color: "#f5f5f5"; font.pixelSize: 11; elide: Text.ElideRight }
+        Text { id: caption; anchors { fill: parent; leftMargin: 10; rightMargin: 10 } verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; text: button.label; color: "#f5f5f5"; font.pixelSize: 11; elide: Text.ElideRight; textFormat: Text.PlainText }
         MouseArea { id: hit; anchors.fill: parent; hoverEnabled: true; onClicked: button.clicked() }
     }
     component StatusSlider: Slider {
@@ -192,17 +192,24 @@ Item {
                             delegate: Rectangle {
                                 id: row
                                 required property var modelData
-                                width: notifications.width; height: modelData.actions.length ? 92 : 58
+                                width: notifications.width; height: Math.max(58, notificationContent.implicitHeight + 16)
                                 radius: 6; color: "#393939"
+                                MouseArea {
+                                    anchors.fill: parent
+                                    onClicked: shell.activateNotification(row.modelData)
+                                }
                                 Column {
+                                    id: notificationContent
                                     anchors { fill: parent; margins: 8 }
                                     Text { width: parent.width - 24; text: row.modelData.summary; color: "#f5f5f5"; font.bold: true; elide: Text.ElideRight; textFormat: Text.PlainText }
                                     Text { width: parent.width; text: row.modelData.body; color: "#c0c0c0"; elide: Text.ElideRight; textFormat: Text.PlainText }
-                                    Row {
+                                    Flow {
+                                        id: notificationActions
+                                        width: parent.width
                                         spacing: 4
                                         Repeater {
                                             model: row.modelData.actions
-                                            SmallButton { required property var modelData; label: modelData.text; onClicked: modelData.invoke() }
+                                            SmallButton { required property var modelData; required property int index; width: Math.min(implicitWidth, notificationActions.width); label: shell.notificationActionLabel(modelData, index); onClicked: modelData.invoke() }
                                         }
                                     }
                                 }

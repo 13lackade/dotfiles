@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import QtQuick.Window
 import Qt.labs.folderlistmodel
 import Quickshell
 import Quickshell.Services.Mpris
@@ -26,6 +27,12 @@ PanelWindow {
     color: "transparent"
     exclusionMode: ExclusionMode.Ignore
     focusable: true
+    Item {
+        Window.onActiveChanged: {
+            if (!Window.active && panel.visible && shell.menuScreen === monitor.name)
+                shell.menu = ""
+        }
+    }
     Shortcut { sequence: "Escape"; enabled: panel.visible; onActivated: shell.menu = "" }
     property real brightness: -1
     property int calendarOffset: 0
@@ -42,7 +49,10 @@ PanelWindow {
 
     function prepareMenu() {
         if (!visible) return
-        if (shell.menu === "start") search.forceActiveFocus()
+        if (shell.menu === "start") {
+            search.text = ""
+            search.forceActiveFocus()
+        }
         if (shell.menu === "clipboard") {
             clipSearch.text = ""
             clipSearch.forceActiveFocus()
