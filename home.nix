@@ -32,7 +32,7 @@
     ./programs/agents
   ]
   ++ lib.optionals (!standalone) [
-    ./programs/shojiwm
+    ./programs/desktop
     ./programs/quickshell
     ./programs/skk.nix
     ./programs/zen.nix

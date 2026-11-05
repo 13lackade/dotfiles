@@ -14,6 +14,7 @@ in
     enable = true;
     type = "fcitx5";
     fcitx5 = {
+      systemd.enable = false;
       waylandFrontend = true;
       addons = with pkgs; [
         fcitx5-skk

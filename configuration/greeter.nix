@@ -1,29 +1,16 @@
 { pkgs, ... }:
 {
-  programs.uwsm = {
-    enable = true;
-    waylandCompositors = {
-      shojiwm = {
-        prettyName = "ShojiWM";
-        comment = "ShojiWM managed by UWSM";
-        binPath = "/run/current-system/sw/bin/shoji_wm";
-        extraArgs = [
-          "--tty"
-          "--log-off"
-        ];
-      };
-    };
-  };
+  programs.uwsm.enable = true;
 
   services.greetd = {
     enable = true;
     settings = {
       initial_session = {
-        command = "${pkgs.uwsm}/bin/uwsm start shojiwm-uwsm.desktop";
+        command = "${pkgs.uwsm}/bin/uwsm start hyprland-uwsm.desktop";
         user = "blackade";
       };
       default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd '${pkgs.uwsm}/bin/uwsm start shojiwm-uwsm.desktop'";
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd '${pkgs.uwsm}/bin/uwsm start hyprland-uwsm.desktop'";
         user = "greeter";
       };
     };

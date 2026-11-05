@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell
+import Quickshell.Hyprland
 import Quickshell.Bluetooth
 import Quickshell.Networking
 import Quickshell.Services.SystemTray
@@ -14,8 +15,8 @@ PanelWindow {
     anchors { top: true; left: true; right: true }
     implicitHeight: 32
     color: "#70151515"
-    property var wsMonitor: shell.monitor(monitor.name)
-    property var activeWorkspace: wsMonitor ? wsMonitor.workspaces.find(w => w.active) : null
+    readonly property var workspaces: Hyprland.workspaces.values.filter(workspace =>
+        workspace.monitor?.name === monitor.name && !workspace.name.startsWith("special:"))
     readonly property var wifi: Networking.devices.values.find(device => device.type === DeviceType.Wifi) || null
     readonly property var currentWifi: wifi ? wifi.networks.values.find(network => network.connected) || null : null
     readonly property string wifiIcon: !Networking.wifiEnabled || !currentWifi ? "wifi-off" : currentWifi.signalStrength >= 0.7 ? "wifi-full" : currentWifi.signalStrength >= 0.4 ? "wifi-midium" : "wifi-low"
@@ -49,25 +50,15 @@ PanelWindow {
             Image { anchors.centerIn: parent; width: 18; height: 18; source: Qt.resolvedUrl(parent.selected ? "assets/nixos-black.svg" : "assets/nixos-white.svg") }
             MouseArea { id: startHit; anchors.fill: parent; hoverEnabled: true; onClicked: shell.toggleMenu("start", monitor.name) }
         }
-        Rectangle {
-            width: layoutRow.implicitWidth + 16; height: 26; radius: 7
-            color: layoutHit.containsMouse ? "#55393939" : "transparent"
-            Row {
-                id: layoutRow; anchors.centerIn: parent; spacing: 6
-                StatusIcon { anchors.verticalCenter: parent.verticalCenter; icon: bar.activeWorkspace?.isTiled ? "tiled" : "float"; iconSize: 16 }
-                Text { anchors.verticalCenter: parent.verticalCenter; text: bar.activeWorkspace?.isTiled ? "Tiled" : "Float"; color: "#f5f5f5"; font.family: "monospace"; font.pixelSize: 13 }
-            }
-            MouseArea { id: layoutHit; anchors.fill: parent; hoverEnabled: true; onClicked: shell.send("workspaces.toggleTiling", { monitor: monitor.name }) }
-        }
         Repeater {
-            model: bar.wsMonitor ? bar.wsMonitor.workspaces : []
+            model: bar.workspaces
             Rectangle {
                 required property var modelData
-                width: 24; height: 24; radius: 6
-                color: modelData.active ? "transparent" : "#552a2a2a"
+                width: Math.max(24, workspaceLabel.implicitWidth + 12); height: 24; radius: 6
+                color: modelData.urgent ? "#88674343" : modelData.active ? "transparent" : "#552a2a2a"
                 border.width: modelData.active ? 1 : 0; border.color: "#c0c0c0"
-                Text { anchors.centerIn: parent; color: modelData.active || modelData.windowCount ? "#f5f5f5" : "#c0c0c0"; text: modelData.index; font.pixelSize: 12 }
-                MouseArea { anchors.fill: parent; onClicked: shell.send("workspaces.activate", { monitor: monitor.name, index: modelData.index }) }
+                Text { id: workspaceLabel; anchors.centerIn: parent; color: modelData.active || modelData.toplevels.values.length ? "#f5f5f5" : "#c0c0c0"; text: modelData.name; font.pixelSize: 12 }
+                MouseArea { anchors.fill: parent; onClicked: modelData.activate() }
             }
         }
     }

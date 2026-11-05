@@ -4,6 +4,7 @@ import QtQuick.Layouts
 import QtQuick.Window
 import Qt.labs.folderlistmodel
 import Quickshell
+import Quickshell.Hyprland
 import Quickshell.Services.Mpris
 import Quickshell.Io
 import Quickshell.Services.Pipewire
@@ -27,6 +28,13 @@ PanelWindow {
     color: "transparent"
     exclusionMode: ExclusionMode.Ignore
     focusable: true
+    HyprlandFocusGrab {
+        windows: [panel]
+        active: panel.visible
+        onCleared: {
+            if (panel.visible) panel.shell.menu = ""
+        }
+    }
     Item {
         Window.onActiveChanged: {
             if (!Window.active && panel.visible && shell.menuScreen === monitor.name)
@@ -120,8 +128,8 @@ PanelWindow {
                     Text { anchors.verticalCenter: parent.verticalCenter; text: modelData.name; color: parent.parent.selected ? "black" : "white"; font.pixelSize: 14 }
                 }
                 MouseArea {
-                    id: appMouse; anchors.fill: parent; hoverEnabled: true; acceptedButtons: Qt.LeftButton | Qt.RightButton
-                    onClicked: mouse => { if (mouse.button === Qt.RightButton) shell.togglePin(modelData.id); else shell.launch(modelData) }
+                    id: appMouse; anchors.fill: parent; hoverEnabled: true
+                    onClicked: shell.launch(modelData)
                 }
             }
         }

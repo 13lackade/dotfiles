@@ -11,7 +11,7 @@ PanelWindow {
     margins { top: 40; right: 8 }
     implicitWidth: 340
     implicitHeight: notificationList.implicitHeight
-    visible: shell.popupNotifications.length > 0 && monitor.name === (shell.workspaceView.currentMonitor || Quickshell.screens[0]?.name)
+    visible: shell.popupNotifications.length > 0 && monitor.name === shell.currentMonitor
     exclusionMode: ExclusionMode.Ignore
     color: "transparent"
 

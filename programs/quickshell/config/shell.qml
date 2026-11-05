@@ -2,15 +2,14 @@
 //@ pragma UseQApplication
 import QtQuick
 import Quickshell
+import Quickshell.Hyprland
 import Quickshell.Io
 import Quickshell.Services.Notifications
 
 ShellRoot {
     id: root
 
-    property var workspaceView: ({ monitors: [], currentMonitor: "" })
-    property var proximity: ({})
-    property var previews: ({})
+    readonly property string currentMonitor: Hyprland.focusedMonitor?.name || Quickshell.screens[0]?.name || ""
     property string menu: ""
     property string menuScreen: ""
     property var clips: []
@@ -22,7 +21,6 @@ ShellRoot {
         if (!value) value = Quickshell.env("HOME") + "/Pictures/wallpapers/wallpaper.jpg"
         return value.startsWith("file://") ? value : "file://" + value
     }
-    property var pinned: []
     property var popupNotifications: []
     property bool notificationsSilent: false
     property bool identifyingMonitors: false
@@ -50,17 +48,6 @@ ShellRoot {
         if (action.identifier === "default") return "Open"
         return action.identifier ? "Action: " + action.identifier : "Action " + (index + 1)
     }
-    function togglePin(id) {
-        let next = pinned.slice()
-        let selected = DesktopEntries.byId(id) || DesktopEntries.heuristicLookup(id)
-        let index = next.findIndex(existing => {
-            let entry = DesktopEntries.byId(existing) || DesktopEntries.heuristicLookup(existing)
-            return entry && selected ? entry.id === selected.id : existing === id
-        })
-        if (index < 0) next.push(id); else next.splice(index, 1)
-        pinned = next
-        dockState.setText(JSON.stringify(next))
-    }
     function setWallpaper(monitor, url) {
         let next = Object.assign({}, wallpapers)
         next[monitor] = url
@@ -78,7 +65,7 @@ ShellRoot {
     }
 
     function toggleMenu(name, monitor) {
-        let target = monitor || workspaceView.currentMonitor || Quickshell.screens[0]?.name || ""
+        let target = monitor || currentMonitor
         if (menu === name && menuScreen === target) {
             menu = ""
         } else {
@@ -87,58 +74,13 @@ ShellRoot {
             if (name === "clipboard") clipboardList.running = true
         }
     }
-    function monitor(name) {
-        return workspaceView.monitors.find(m => m.name === name)
-            || workspaceView.monitors.find(m => m.name === workspaceView.currentMonitor)
-            || workspaceView.monitors[0] || null
-    }
-    function send(method, params) {
-        if (shoji.connected) {
-            shoji.write(JSON.stringify({ method: method, params: params }) + "\n")
-            shoji.flush()
-        }
-    }
     function launch(entry) {
         if (!entry) return
-        let id = entry.id.replace(/\.desktop$/, "").toLowerCase()
-        if (id === "slack" || id === "discord") send("apps.launch", { app: id })
-        else entry.execute()
+        let desktopId = entry.id.endsWith(".desktop") ? entry.id : entry.id + ".desktop"
+        Quickshell.execDetached(["uwsm", "app", "--", desktopId])
         menu = ""
     }
 
-    Socket {
-        id: shoji
-        path: Quickshell.env("XDG_RUNTIME_DIR") + "/shojiwm-" + Quickshell.env("WAYLAND_DISPLAY") + ".sock"
-        connected: true
-        onConnectedChanged: if (connected) {
-            write('{"id":1,"method":"workspaces.get"}\n')
-            flush()
-        }
-        parser: SplitParser {
-            onRead: data => {
-                try {
-                    let msg = JSON.parse(data)
-                    if (msg.event === "workspaces.changed" || msg.id === 1)
-                        root.workspaceView = msg.payload || msg.result
-                    else if (msg.event === "dock.proximity") {
-                        let p = Object.assign({}, root.proximity)
-                        p[msg.payload.monitor] = msg.payload.inside
-                        root.proximity = p
-                    } else if (msg.event === "snap.preview") {
-                        let p = Object.assign({}, root.previews)
-                        p[msg.payload.monitor] = msg.payload.rect
-                        root.previews = p
-                    }
-                } catch (error) { console.warn("ShojiWM IPC:", error) }
-            }
-        }
-    }
-    Timer {
-        interval: 1000
-        running: !shoji.connected
-        repeat: true
-        onTriggered: shoji.connected = true
-    }
     IpcHandler {
         target: "shell"
         function toggle(name: string, monitor: string): void { root.toggleMenu(name, monitor) }
@@ -171,12 +113,6 @@ ShellRoot {
         }
     }
     Timer { interval: 3000; repeat: true; running: true; triggeredOnStart: true; onTriggered: systemUsage.running = true }
-    FileView {
-        id: dockState
-        path: Quickshell.env("HOME") + "/.config/quickshell-dock.json"
-        printErrors: false
-        onLoaded: { try { root.pinned = JSON.parse(text()) } catch (e) {} }
-    }
     FileView {
         id: wallpaperState
         path: Quickshell.env("HOME") + "/.config/quickshell-wallpapers.json"
@@ -217,11 +153,9 @@ ShellRoot {
             required property var modelData
             Background { shell: root; monitor: modelData }
             Bar { shell: root; monitor: modelData }
-            SnapPreview { shell: root; monitor: modelData }
             MonitorIdentify { shell: root; monitor: modelData }
             NotificationPopup { shell: root; monitor: modelData }
             Menus { shell: root; monitor: modelData }
-            Dock { shell: root; monitor: modelData }
         }
     }
 }

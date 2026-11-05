@@ -40,28 +40,7 @@
       "inputs": {
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
-        "shojiwm": "shojiwm",
         "zen-browser": "zen-browser"
-      }
-    },
-    "shojiwm": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1793259626,
-        "narHash": "sha256-MyQiJ5mkJZdiEdsmawSpnY30rDkhTFC+VOohwoXMcaw=",
-        "owner": "bea4dev",
-        "repo": "ShojiWM",
-        "rev": "fe8adcddfe75069b0f5b58e82232cbdb799ed8f5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "bea4dev",
-        "repo": "ShojiWM",
-        "type": "github"
       }
     },
     "zen-browser": {

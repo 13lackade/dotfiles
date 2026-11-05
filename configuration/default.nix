@@ -6,7 +6,7 @@
 
   imports = [
     ./configuration.nix
-    ./shojiwm.nix
+    ./desktop.nix
     ./nix.nix
     ./boot.nix
     ./networking.nix
