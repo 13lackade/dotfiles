@@ -15,6 +15,7 @@
     xdg-utils
     brightnessctl
     playerctl
+    mpv
   ];
 
   xdg.configFile."hypr" = {
