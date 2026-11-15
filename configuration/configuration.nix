@@ -17,8 +17,9 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    jack.enable = true;
   };
+
+  environment.systemPackages = [ pkgs.pipewire.jack ];
 
   services.printing = {
     enable = true;
