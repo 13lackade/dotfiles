@@ -16,6 +16,7 @@
     brightnessctl
     playerctl
     mpv
+    hyprshot
   ];
 
   xdg.configFile."hypr" = {

@@ -271,6 +271,9 @@ local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 hl.bind("Super_L", hl.dsp.exec_cmd(menu), { release = true })
 hl.bind("Super_R", hl.dsp.exec_cmd(menu), { release = true })
 
+-- Save a selected region and copy it to the clipboard.
+hl.bind("Print", hl.dsp.exec_cmd('hyprshot -m region -o "$HOME/Pictures/Screenshots"'))
+
 -- Example binds, see https://wiki.hypr.land/configuring/core/binds/ for more
 hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
 local closeWindowBind = hl.bind(mainMod .. " + C", hl.dsp.window.close())
