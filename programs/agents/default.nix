@@ -2,12 +2,13 @@
   pkgs,
   symlink,
   dotfiles,
+  inputs,
   ...
 }:
 {
   home.packages = with pkgs; [
     antigravity-cli
-    codex
+    inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.codex
     github-copilot-cli
 
     fd
