@@ -176,39 +176,39 @@
   };
   "lean.nvim" = {
     pname = "lean.nvim";
-    version = "3783e6f9b352c54a0ddc219ac546f43213bb5bba";
+    version = "5f759412341a370ac7a9e3308fb99d597f2970b3";
     src = fetchFromGitHub {
       owner = "Julian";
       repo = "lean.nvim";
-      rev = "3783e6f9b352c54a0ddc219ac546f43213bb5bba";
+      rev = "5f759412341a370ac7a9e3308fb99d597f2970b3";
       fetchSubmodules = false;
-      sha256 = "sha256-dUgIqO4+xihF3hc3U8W+zbwkNJJhrQFQgZTb1pCbvvg=";
+      sha256 = "sha256-yFJdYmU3PgpcKw2oMaVIOPzXos0CpOlpSjHsfMwe2MU=";
     };
-    date = "2026-11-16";
+    date = "2026-11-17";
   };
   nvim-lspconfig = {
     pname = "nvim-lspconfig";
-    version = "6a3ddecf60e19f164390308f502e67f3199f58e8";
+    version = "4648fd8ba5c678d7e2db75ae44ffac269bb589d8";
     src = fetchFromGitHub {
       owner = "neovim";
       repo = "nvim-lspconfig";
-      rev = "6a3ddecf60e19f164390308f502e67f3199f58e8";
+      rev = "4648fd8ba5c678d7e2db75ae44ffac269bb589d8";
       fetchSubmodules = false;
-      sha256 = "sha256-y5gjWqbnFCb1PSSVsHOzBLiOMFj2vD3iTNC5NzPC08k=";
+      sha256 = "sha256-FywWiEGEuauWQzOONBLwxzc5cPfrMT/v2b6CTcYj7Nw=";
     };
-    date = "2026-11-16";
+    date = "2026-11-18";
   };
   nvim-treesitter = {
     pname = "nvim-treesitter";
-    version = "b706d642dd20d0922e7e92365dc73617f0fdb4ea";
+    version = "37e52c733ada9d8d544d53a763140ef1ba404353";
     src = fetchFromGitHub {
       owner = "nvim-treesitter";
       repo = "nvim-treesitter";
-      rev = "b706d642dd20d0922e7e92365dc73617f0fdb4ea";
+      rev = "37e52c733ada9d8d544d53a763140ef1ba404353";
       fetchSubmodules = false;
-      sha256 = "sha256-QT7tSbS1+zykHFxBB6cIXg+mlG+qnsZfkC12Fo1BtcU=";
+      sha256 = "sha256-6ETageMMpoVYRc0ZKbVl4UAKH26ZyM0OUTkOOG6JyrE=";
     };
-    date = "2026-11-16";
+    date = "2026-11-18";
   };
   "pum.vim" = {
     pname = "pum.vim";
@@ -224,15 +224,15 @@
   };
   tree-sitter-lean = {
     pname = "tree-sitter-lean";
-    version = "0d28e5d6e8c4755f5df7ef9bde3b6ec6f59fae94";
+    version = "fefc2eff9a83eeb72cda44646709e40e33e09175";
     src = fetchFromGitHub {
       owner = "Julian";
       repo = "tree-sitter-lean";
-      rev = "0d28e5d6e8c4755f5df7ef9bde3b6ec6f59fae94";
+      rev = "fefc2eff9a83eeb72cda44646709e40e33e09175";
       fetchSubmodules = false;
-      sha256 = "sha256-3A4Ag3p3FjCD6BXdiEpDfTCsRWmTzH8IlyxRLFu4xvc=";
+      sha256 = "sha256-P7UItFKk+tlp+pLRdzC6F3HOb3QXxL48dV0ioMO5teU=";
     };
-    date = "2026-11-01";
+    date = "2026-11-21";
   };
   zsh-syntax-highlighting = {
     pname = "zsh-syntax-highlighting";
