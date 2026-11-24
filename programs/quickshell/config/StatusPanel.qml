@@ -22,6 +22,7 @@ Item {
     readonly property var wifi: Networking.devices.values.find(device => device.type === DeviceType.Wifi) || null
     readonly property var connectedWifi: wifi ? wifi.networks.values.find(network => network.connected) || null : null
     readonly property var player: Mpris.players.values.find(candidate => candidate.isPlaying) || Mpris.players.values[0] || null
+    readonly property int activePowerProfile: shell.powerProfilesReady ? PowerProfiles.profile : PowerProfile.Balanced
 
     function mediaTime(seconds) {
         let value = Math.max(0, Math.floor(seconds || 0))
@@ -153,8 +154,9 @@ Item {
                     }
                     AccentButton {
                         Layout.fillWidth: true
-                        label: PowerProfile.toString(PowerProfiles.profile)
-                        icon: PowerProfiles.profile === PowerProfile.PowerSaver ? "leaf" : PowerProfiles.profile === PowerProfile.Performance ? "lightning" : "balanced"
+                        enabled: shell.powerProfilesReady
+                        label: enabled ? PowerProfile.toString(status.activePowerProfile) : "Power profile"
+                        icon: status.activePowerProfile === PowerProfile.PowerSaver ? "leaf" : status.activePowerProfile === PowerProfile.Performance ? "lightning" : "balanced"
                         selected: status.section === "power"
                         chevron: true
                         onClicked: status.openSection("power")
@@ -340,9 +342,10 @@ Item {
                         anchors.fill: parent
                         visible: status.section === "power"
                         Text { text: "Power profile"; color: "white"; font.bold: true }
-                        AccentButton { Layout.fillWidth: true; label: "Power saver"; icon: "leaf"; selected: PowerProfiles.profile === PowerProfile.PowerSaver; onClicked: PowerProfiles.profile = PowerProfile.PowerSaver }
-                        AccentButton { Layout.fillWidth: true; label: "Balanced"; icon: "balanced"; selected: PowerProfiles.profile === PowerProfile.Balanced; onClicked: PowerProfiles.profile = PowerProfile.Balanced }
-                        AccentButton { Layout.fillWidth: true; visible: PowerProfiles.hasPerformanceProfile; label: "Performance"; icon: "lightning"; selected: PowerProfiles.profile === PowerProfile.Performance; onClicked: PowerProfiles.profile = PowerProfile.Performance }
+                        enabled: shell.powerProfilesReady
+                        AccentButton { Layout.fillWidth: true; label: "Power saver"; icon: "leaf"; selected: status.activePowerProfile === PowerProfile.PowerSaver; onClicked: PowerProfiles.profile = PowerProfile.PowerSaver }
+                        AccentButton { Layout.fillWidth: true; label: "Balanced"; icon: "balanced"; selected: status.activePowerProfile === PowerProfile.Balanced; onClicked: PowerProfiles.profile = PowerProfile.Balanced }
+                        AccentButton { Layout.fillWidth: true; visible: shell.powerProfilesReady && PowerProfiles.hasPerformanceProfile; label: "Performance"; icon: "lightning"; selected: status.activePowerProfile === PowerProfile.Performance; onClicked: PowerProfiles.profile = PowerProfile.Performance }
                         Item { Layout.fillHeight: true }
                     }
                 }

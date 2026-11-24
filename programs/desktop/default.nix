@@ -17,6 +17,8 @@
     playerctl
     mpv
     hyprshot
+
+    vscodium
   ];
 
   xdg.configFile."hypr" = {

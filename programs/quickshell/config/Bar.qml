@@ -142,7 +142,12 @@ PanelWindow {
                 id: statusIcons; anchors.centerIn: parent; spacing: 4
                 StatusIcon { icon: bar.wifiIcon; dark: statusButton.selected; iconSize: 14 }
                 StatusIcon { visible: Bluetooth.defaultAdapter?.enabled ?? false; icon: "bluetooth"; dark: statusButton.selected; iconSize: 14 }
-                StatusIcon { icon: PowerProfiles.profile === PowerProfile.PowerSaver ? "leaf" : PowerProfiles.profile === PowerProfile.Performance ? "lightning" : "balanced"; dark: statusButton.selected; iconSize: 14 }
+                StatusIcon {
+                    visible: shell.powerProfilesReady
+                    icon: !shell.powerProfilesReady ? "balanced" : PowerProfiles.profile === PowerProfile.PowerSaver ? "leaf" : PowerProfiles.profile === PowerProfile.Performance ? "lightning" : "balanced"
+                    dark: statusButton.selected
+                    iconSize: 14
+                }
                 StatusIcon { icon: shell.notificationsSilent ? "bell-no" : "bell"; dark: statusButton.selected; iconSize: 14 }
                 StatusIcon { icon: "music"; dark: statusButton.selected; iconSize: 14 }
                 StatusIcon { icon: Pipewire.defaultAudioSink?.audio?.muted || Pipewire.defaultAudioSink?.audio?.volume === 0 ? "volume-off" : "volume"; dark: statusButton.selected; iconSize: 14 }

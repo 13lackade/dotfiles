@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   programs.uwsm.enable = true;
 
@@ -6,18 +6,18 @@
     enable = true;
     settings = {
       initial_session = {
-        command = "${pkgs.uwsm}/bin/uwsm start hyprland-uwsm.desktop";
+        command = "${pkgs.uwsm}/bin/uwsm start -g -1 hyprland-uwsm.desktop";
         user = "blackade";
       };
       default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd '${pkgs.uwsm}/bin/uwsm start hyprland-uwsm.desktop'";
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd '${pkgs.uwsm}/bin/uwsm start -g -1 hyprland-uwsm.desktop'";
         user = "greeter";
       };
     };
   };
 
   systemd.services.greetd.serviceConfig = {
-    Type = "idle";
+    Type = lib.mkForce "simple";
     StandardInput = "tty";
     StandardOutput = "tty";
     StandardError = "journal";

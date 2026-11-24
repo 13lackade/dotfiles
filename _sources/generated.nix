@@ -200,27 +200,27 @@
   };
   nvim-treesitter = {
     pname = "nvim-treesitter";
-    version = "37e52c733ada9d8d544d53a763140ef1ba404353";
+    version = "52773f0d13a0c11d0c3ef33c14ab6ecc1c17148b";
     src = fetchFromGitHub {
       owner = "nvim-treesitter";
       repo = "nvim-treesitter";
-      rev = "37e52c733ada9d8d544d53a763140ef1ba404353";
+      rev = "52773f0d13a0c11d0c3ef33c14ab6ecc1c17148b";
       fetchSubmodules = false;
-      sha256 = "sha256-6ETageMMpoVYRc0ZKbVl4UAKH26ZyM0OUTkOOG6JyrE=";
+      sha256 = "sha256-30qOzooNxnslxwWZ1nNo59beAn5FVOCutBNLkvd1uzI=";
     };
-    date = "2026-11-18";
+    date = "2026-11-21";
   };
   "pum.vim" = {
     pname = "pum.vim";
-    version = "5e8d57ca472e8b0cf08a1428233320dd1e1376a2";
+    version = "6b2049908b4eb6189b46a14cf27b5da8a74bcc35";
     src = fetchFromGitHub {
       owner = "Shougo";
       repo = "pum.vim";
-      rev = "5e8d57ca472e8b0cf08a1428233320dd1e1376a2";
+      rev = "6b2049908b4eb6189b46a14cf27b5da8a74bcc35";
       fetchSubmodules = false;
-      sha256 = "sha256-h0gjT30TQv4oK7Eur/RY9gfUtWq4zj1eL/BfqFH9xK0=";
+      sha256 = "sha256-Ip6cSTKFtsTC/s+RCn2hEnFfF7Nt6rUzDagjlL7H+Zc=";
     };
-    date = "2026-10-30";
+    date = "2026-11-22";
   };
   tree-sitter-lean = {
     pname = "tree-sitter-lean";

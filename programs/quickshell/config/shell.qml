@@ -24,6 +24,7 @@ ShellRoot {
     property var popupNotifications: []
     property bool notificationsSilent: false
     property bool identifyingMonitors: false
+    property bool powerProfilesReady: false
     property string cpu: "--"
     property string memory: "--"
     property var previousCpu: null
@@ -93,6 +94,19 @@ ShellRoot {
         stdout: StdioCollector {
             onStreamFinished: root.clips = text.trim().split("\n").filter(x => /^\d+\t/.test(x))
         }
+    }
+    // Wait for the daemon outside the QML thread before accessing PowerProfiles.
+    Process {
+        id: powerProfilesProbe
+        command: ["powerprofilesctl", "get"]
+        onExited: code => root.powerProfilesReady = code === 0
+    }
+    Timer {
+        interval: 5000
+        repeat: true
+        running: !root.powerProfilesReady
+        triggeredOnStart: true
+        onTriggered: if (!powerProfilesProbe.running) powerProfilesProbe.running = true
     }
     Process {
         id: systemUsage

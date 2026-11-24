@@ -87,6 +87,13 @@ hl.config({ cursor = { enable_hyprcursor = false } })
 
 -- Refer to https://wiki.hypr.land/configuring/core/config-options/
 hl.config({
+    debug = {
+        -- Keep timestamped initialization messages for boot timing.
+        disable_logs = false,
+        disable_time = false,
+        enable_stdout_logs = true,
+    },
+
     general = {
         gaps_in  = 5,
         gaps_out = 20,
